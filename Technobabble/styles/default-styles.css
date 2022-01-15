@@ -6,10 +6,14 @@ body{
     font-size: 200%;
 }
 
-#myButton{
+button{
     width: 200pt;
     height: 50pt;
     font-size: 15pt;
+}
+
+#multi-button{
+    display: none;
 }
 
 @media only screen and (min-width: 320px){
@@ -37,6 +41,10 @@ body{
     #output{
         text-align: center;
     }
+
+    #multi-button{
+        display: none;
+    }
 }
 
 @media only screen and (min-width: 768px){
@@ -45,7 +53,7 @@ body{
         background-color: #23D160;
     }
 
-    #myButton{
+    button{
         width: 300px;
         height: 75px;
         font-size: 1.5rem;
@@ -68,7 +76,7 @@ body{
         font-size: 1.5rem;
     }
 
-    #myButton{
+    button{
         width: 200px;
         font-size: 1.5rem;
     }
@@ -93,7 +101,11 @@ body{
         font-size: 3.0rem;
     }
 
-    #myButton{
+    button{
         width: 400px;
+    }
+
+    #multi-button{
+        display: block;
     }
 }

@@ -8,16 +8,26 @@ const words3 = ["Chamber", "Interface", "Coil", "Polymer", "Biosphere", "Platfor
 
 init();
 
+// initialize function, applies onclick events to each button
 function init() {
-    generatePhrase();
-    document.querySelector("#myButton").onclick = generatePhrase;
+    generatePhrase(1);
+    const singleButton = document.querySelector("#single-button");
+    const multiButton = document.querySelector("#multi-button");
+    singleButton.onclick = () => generatePhrase(1);
+    multiButton.onclick = () => generatePhrase(5);
 }
 
+// returns a random element of the given array
 function randomElement(array) {
     return array[Math.floor(Math.random() * array.length)];
 }
 
-function generatePhrase() {
-    const phrase = `${randomElement(words1)} ${randomElement(words2)} ${randomElement(words3)}`;
-    document.querySelector("#output").innerHTML = phrase;
+// generates a number of phrases line by line based on num
+function generatePhrase(num) {
+    let fullPhrase = "";
+    for (let i = 0; i < num; ++i) {
+        const phrase = `${randomElement(words1)} ${randomElement(words2)} ${randomElement(words3)}`;
+        fullPhrase += `${phrase} <br>`;
+    }
+    document.querySelector("#output").innerHTML = fullPhrase;
 }
