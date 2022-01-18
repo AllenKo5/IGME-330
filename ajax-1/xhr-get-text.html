@@ -21,7 +21,7 @@
 
     <hr>
     <button id="my-button">Load Data</button>
-    <p id="output">Click button to load</p>
+    <div id="output">Click button to load</div>
 
 
     <script>
@@ -34,11 +34,25 @@
                 console.log(`In onload - HTTP Status Code = ${e.target.status}`);
                 const text = e.target.responseText;
                 console.log(`Success - the file length is ${text.length}`);
+                const words = text.split(",");
+
+                // turn array into HTML
+                // I. Long way
+                // let html = "<ol>";
+                // for (let w of words) {
+                //     html += `<li>${w}</li>`;
+                // }
+                // html += "</ol>";
+                // document.querySelector("#output").innerHTML = html;
+
+                // II. Short way
+                const html = `<ol>${words.map(w => `<li>${w}</li>`).join("")}</ol>`;
+                document.querySelector("#output").innerHTML = html;
             };
             xhr.onerror = e => console.log(`In onerror - HTTP Status Code = ${e.target.status}`);
             xhr.open("GET", url);
             xhr.send();
-        };
+        }
     </script>
 </body>
 
