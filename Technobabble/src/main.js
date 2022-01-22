@@ -1,28 +1,29 @@
 let words1, words2, words3;
 
-loadTextXHR();
+loadXmlXHR();
 
-// loads text from csv file
-function loadTextXHR() {
-    const url = "data/babble-data.csv";
+// loads text from xml file
+function loadXmlXHR() {
+    const url = "data/babble-data.xml";
     const xhr = new XMLHttpRequest();
     xhr.onload = (e) => {
-        const text = e.target.responseText;
-        const lines = text.split("\n");
-        words1 = lines[0].split(",");
-        words2 = lines[1].split(",");
-        words3 = lines[2].split(",");
+        const xml = e.target.responseXML;
+
+        if (!xml) {
+            document.querySelector("#output").innerHTML = "xml is null!";
+            return;
+        }
+
+        words1 = xml.querySelector("namelist[cid='words1']").textContent.split(",");
+        words2 = xml.querySelector("namelist[cid='words2']").textContent.split(",");
+        words3 = xml.querySelector("namelist[cid='words3']").textContent.split(",");
+
+        generatePhrase(1);
+        document.querySelector("#single-button").onclick = () => generatePhrase(1);
+        document.querySelector("#multi-button").onclick = () => generatePhrase(5);
     };
     xhr.open("GET", url);
     xhr.send();
-    init();
-}
-
-// initialize function, applies onclick events to each button
-function init() {
-    window.onload = () => generatePhrase(1);
-    document.querySelector("#single-button").onclick = () => generatePhrase(1);
-    document.querySelector("#multi-button").onclick = () => generatePhrase(5);
 }
 
 // returns a random element of the given array
