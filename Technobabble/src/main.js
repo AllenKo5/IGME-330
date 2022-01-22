@@ -1,22 +1,25 @@
+import { randomElement } from "./utils.js";
+
 let words1, words2, words3;
 
-loadXmlXHR();
+loadJsonXHR();
 
-// loads text from xml file
-function loadXmlXHR() {
-    const url = "data/babble-data.xml";
+// loads text from json file
+function loadJsonXHR() {
+    const url = "data/babble-data.json";
     const xhr = new XMLHttpRequest();
     xhr.onload = (e) => {
-        const xml = e.target.responseXML;
-
-        if (!xml) {
-            document.querySelector("#output").innerHTML = "xml is null!";
+        let json;
+        try {
+            json = JSON.parse(e.target.responseText);
+        } catch {
+            document.querySelector("#output").innerHTML = "BAD JSON!";
             return;
         }
 
-        words1 = xml.querySelector("namelist[cid='words1']").textContent.split(",");
-        words2 = xml.querySelector("namelist[cid='words2']").textContent.split(",");
-        words3 = xml.querySelector("namelist[cid='words3']").textContent.split(",");
+        words1 = json["words1"].wordlist;
+        words2 = json["words2"].wordlist;
+        words3 = json["words3"].wordlist;
 
         generatePhrase(1);
         document.querySelector("#single-button").onclick = () => generatePhrase(1);
@@ -24,11 +27,6 @@ function loadXmlXHR() {
     };
     xhr.open("GET", url);
     xhr.send();
-}
-
-// returns a random element of the given array
-function randomElement(array) {
-    return array[Math.floor(Math.random() * array.length)];
 }
 
 // generates a number of phrases line by line based on num
