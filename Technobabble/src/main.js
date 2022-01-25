@@ -17,9 +17,9 @@ function loadJsonXHR() {
             return;
         }
 
-        words1 = json["words1"].wordlist;
-        words2 = json["words2"].wordlist;
-        words3 = json["words3"].wordlist;
+        words1 = json["words1"];
+        words2 = json["words2"];
+        words3 = json["words3"];
 
         generatePhrase(1);
         document.querySelector("#single-button").onclick = () => generatePhrase(1);
