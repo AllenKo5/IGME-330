@@ -9,20 +9,17 @@ const createBlackoutText = () => {
   console.log("createBlackoutText() called");
   // #5 - clear out #output, that's where the blackout text will go
   output.innerHTML = "";
+
   // #6 - grab the value of the <textarea> and store it in a variable named `string`
   const string = textarea.value.trim();
+
   // #7 - turn `string` into an array of words and loop through it 
   // Here we want to turn each word into a clickable <span>
   // When a <span> is clicked on, its background color will toggle between black and white
   // Add each <span> to #output
   // Test it!
-  const words = string.split(" ");
-  for (let w of words) {
-    const span = document.createElement("span");
-    span.innerHTML = `<span>${w}</span>`;
-    // span.onclick = toggleBackground;
-    output.appendChild(span);
-  }
+  const html = string.split(" ").map(w => `<span>${w}</span>`).join("");
+  output.innerHTML = html;
   output.onclick = toggleBackground;
 }
 
@@ -30,6 +27,7 @@ const setupUI = json => {
   // #1 -  Hook up the `output` and `textarea` variables (already declared up top) to the appropriate elements
   output = document.querySelector("#output");
   textarea = document.querySelector("textarea");
+
   // #2 - populate the rest of the UI with loaded text
   // here we use a *descendant selector* to get a ref to the <h1> in the <header> 
   // https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors
@@ -43,8 +41,10 @@ const setupUI = json => {
   document.querySelector("#instructions-1").textContent = json["instructions-1"];
   document.querySelector("#instructions-2").textContent = json["instructions-2"];
   textarea.textContent = json["default-text"];
+
   // #3 - Hook up the button onclick to the createBlackoutText() function
   document.querySelector("#btn-create").onclick = createBlackoutText;
+  
   // #4 - call createBlackoutText()
   createBlackoutText();
 };
