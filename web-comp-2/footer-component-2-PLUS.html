@@ -14,7 +14,7 @@
         }
     </style>
     <!-- Web Components Polyfill for older browsers -->
-    <script defersrc="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.6.0/webcomponents-loader.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.6.0/webcomponents-loader.min.js"></script>
     <script type="module" src="src/igm-footer.js"></script>
     <script>
         // YOUR CODE GOES HERE
@@ -23,6 +23,9 @@
             document.querySelector("igm-footer").style.border = "none";
             // change an attribute of the first <igm-footer> - fails!
             document.querySelector("igm-footer").setAttribute("data-year", 1066);
+            // BTW - the `dataset` property is easier to use than `.setAttribute()`
+            // Add this to the `window.onload` handler
+            document.querySelector("igm-footer").dataset.text = "William the Conquerer";
         };
     </script>
 </head>

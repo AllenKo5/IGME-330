@@ -10,6 +10,10 @@ span {
     font-variant: small-caps;
     font-weight: bolder;
     font-family: sans-serif;
+    user-select: none;
+}
+hr {
+    border: 3px solid red;
 }
 </style>
 <span></span>
@@ -22,17 +26,15 @@ class IGMFooter extends HTMLElement {
 
         this.attachShadow({ mode: "open" });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
-    }
 
-    connectedCallback() {
-        this.render();
-    }
+        // put this at the end of the constructor
+        if (!this.dataset.year) this.dataset.year = 1989;
+        if (!this.dataset.text) this.dataset.text = "Bill & Ted";
 
-    render() {
-        const year = this.getAttribute("data-year") ? this.getAttribute("data-year") : "1995";
-        const text = this.getAttribute("data-text") ? this.getAttribute("data-text") : "Nobody";
+        // This line of code will create an property named `span` for us, so that we don't have to keep calling this.shadowRoot.querySelector("span");
+        this.span = this.shadowRoot.querySelector("span");
 
-        this.shadowRoot.querySelector("span").innerHTML = `&copy; Copyright ${year}, ${text}`;
+        this.count = 0;
     }
 
     static get observedAttributes() {
@@ -42,6 +44,30 @@ class IGMFooter extends HTMLElement {
     attributeChangedCallback(attributeName, oldVal, newVal) {
         console.log(attributeName, oldVal, newVal);
         this.render();
+    }
+
+    connectedCallback() {
+        this.span.onclick = () => {
+            let year = +this.dataset.year + 1;
+            this.dataset.year = year;
+            this.count = this.count + 1;
+            this.render();
+        };
+
+        this.shadowRoot.querySelector("hr").onclick = () => {
+            this.remove();
+        }
+    }
+
+    disconnectedCallback() {
+        this.span.onclick = null;
+    }
+
+    render() {
+        const year = this.getAttribute("data-year") ? this.getAttribute("data-year") : "1995";
+        const text = this.getAttribute("data-text") ? this.getAttribute("data-text") : "Nobody";
+
+        this.shadowRoot.querySelector("span").innerHTML = `&copy; Copyright ${year}, ${text}, count: ${this.count}`;
     }
 }
 
