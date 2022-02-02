@@ -1,7 +1,9 @@
 // all.json is from https://akabab.github.io/starwars-api/
 
 import "./sw-header.js";
+import "./sw-footer.js";
 import "./sw-card.js";
+import {loadFile} from "./utils.js";
 
 let swcJSON = {}; // "Star Wars Character JSON"
 
@@ -10,6 +12,8 @@ const showCharacter = swcObj => {
   swCard.dataset.name = swcObj.name ?? "no name found";
   swCard.dataset.height = swcObj.height ?? "?";
   swCard.dataset.mass = swcObj.mass ?? "?";
+  swCard.dataset.species = swcObj.species ?? "?";
+  swCard.dataset.affiliations = swcObj.affiliations ?? "?";
   swCard.dataset.image = swcObj.image ?? "";
   document.querySelector(".card-list").appendChild(swCard);
 };
@@ -19,15 +23,6 @@ const selectChange = e => {
   if (swcID == 0) return; // if it's the first <option>, return
   const swcObj = swcJSON[swcID]; // "Star Wars Character Object"
   if (swcObj) showCharacter(swcObj);
-};
-
-
-const loadFile = (url, callback) => {
-  const fetchPromise = async () => {
-    const response = await fetch(url);
-    callback(await response.json());
-  }
-  fetchPromise();
 };
 
 const jsonLoaded = json => {

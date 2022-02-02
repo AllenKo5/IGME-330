@@ -41,8 +41,10 @@ button:hover{
     <h2></h2>
     <button>X</button>
     <img alt="mugshot">
-    <p id="swc-height">Height: </p>
-    <p id="swc-mass">Mass: </p>
+    <p id="swc-height"></p>
+    <p id="swc-mass"></p>
+    <p id="swc-species"></p>
+    <p id="swc-affiliations"></p>
 </div>
 `;
 
@@ -57,6 +59,8 @@ class SWCard extends HTMLElement {
         this.img = this.shadowRoot.querySelector("img");
         this.p1 = this.shadowRoot.querySelector("#swc-height");
         this.p2 = this.shadowRoot.querySelector("#swc-mass");
+        this.p3 = this.shadowRoot.querySelector("#swc-species");
+        this.p4 = this.shadowRoot.querySelector("#swc-affiliations");
         this.button = this.shadowRoot.querySelector("button");
     }
 
@@ -75,18 +79,29 @@ class SWCard extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ["data-name", "data-height", "data-mass", "data-image"];
+        return ["data-name", "data-height", "data-mass", "data-image", "data-species", "data-affiliations"];
     }
 
     render() {
         const name = this.getAttribute('data-name') ? this.getAttribute('data-name') : "<i>...character name...</i>";
         const height = this.getAttribute('data-height') ? this.getAttribute('data-height') : "0";
         const mass = this.getAttribute('data-mass') ? this.getAttribute('data-mass') : "0";
+        const species = this.getAttribute('data-species') ? this.getAttribute('data-species') : "human";
+        const affiliations = this.getAttribute('data-affiliations') ? this.getAttribute('data-affiliations') : "none";
         const imageUrl = this.getAttribute('data-image') ? this.getAttribute('data-image') : "images/catimage-no-image.png";
 
+        // creates unordered list by splitting affiliations
+        // for testing purposes, IG-88 has no affiliations
+        let affilText = "<ul>";
+        for (let a of affiliations.split(",")) {
+            affilText += `<li>${a}</li>`;
+        }
+
         this.h2.innerHTML = `${name}`;
-        this.p1.innerHTML = `${height}`;
-        this.p2.innerHTML = `${mass}`;
+        this.p1.innerHTML = `Height: ${height}`;
+        this.p2.innerHTML = `Mass: ${mass}`;
+        this.p3.innerHTML = `Species: ${species}`;
+        this.p4.innerHTML = `Affiliations: ${affilText}</ul>`;
         this.img.src = imageUrl;
     }
 }
