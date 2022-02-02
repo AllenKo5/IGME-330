@@ -14,28 +14,6 @@ body{
   font-family: sans-serif;
 }
 
-#character-info{
-  height: 340px;
-  width: 170px;
-  border: 1px solid gray;
-  padding: .5rem;
-  background-color: #f4f4f4;
-  overflow: scroll;
-  font-size: .7rem;
-}
-
-#character-info h2{
-  font-size: 1.1rem;
-  font-family: SfDistantGalaxy, sans-serif;
-  letter-spacing: .67px;
-  line-height: 1.2;
-  margin-top: 0;
-}
-
-#character-pic{
-  width: 100px;
-}
-
 footer{
   color: white;
   background-color: black;
