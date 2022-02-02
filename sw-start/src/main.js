@@ -6,11 +6,12 @@ import "./sw-card.js";
 let swcJSON = {}; // "Star Wars Character JSON"
 
 const showCharacter = swcObj => {
-  const swCard = document.querySelector("sw-card");
+  const swCard = document.createElement("sw-card");
   swCard.dataset.name = swcObj.name ?? "no name found";
   swCard.dataset.height = swcObj.height ?? "?";
   swCard.dataset.mass = swcObj.mass ?? "?";
   swCard.dataset.image = swcObj.image ?? "";
+  document.querySelector(".card-list").appendChild(swCard);
 };
 
 const selectChange = e => {

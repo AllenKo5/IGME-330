@@ -9,6 +9,7 @@ div{
     background-color: #f4f4f4;
     overflow: scroll;
     font-size: .7rem;
+    position: relative;
 }
   
 h2{
@@ -22,13 +23,27 @@ h2{
 img{
     width: 100px;
 }
+
+button{
+    border-radius: 1px;
+    padding: 2px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    opacity: 0.2;
+}
+
+button:hover{
+    opacity: 1;
+}
 </style>
 <div>
     <h2></h2>
+    <button>X</button>
     <img alt="mugshot">
     <p id="swc-height">Height: </p>
     <p id="swc-mass">Mass: </p>
-<div>
+</div>
 `;
 
 class SWCard extends HTMLElement {
@@ -42,13 +57,16 @@ class SWCard extends HTMLElement {
         this.img = this.shadowRoot.querySelector("img");
         this.p1 = this.shadowRoot.querySelector("#swc-height");
         this.p2 = this.shadowRoot.querySelector("#swc-mass");
+        this.button = this.shadowRoot.querySelector("button");
     }
 
     connectedCallback() {
+        this.button.onclick = () => this.remove();
         this.render();
     }
 
     disconnectedCallback() {
+        this.button.onclick = null;
     }
 
     attributeChangedCallback(attributeName, oldVal, newVal) {

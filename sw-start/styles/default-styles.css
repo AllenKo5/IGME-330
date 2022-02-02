@@ -10,11 +10,21 @@
   src: url(../fonts/SfDistantGalaxyOutline-xoeO.ttf);
 }
 
-body{
+.card-list{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+body {
   font-family: sans-serif;
 }
 
-footer{
+sw-card {
+  margin: 0 .5rem .5rem 0;
+}
+
+footer {
   color: white;
   background-color: black;
   padding: .5rem;
