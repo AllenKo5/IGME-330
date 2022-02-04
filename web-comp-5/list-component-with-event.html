@@ -112,23 +112,33 @@
             add(val) {
                 if (val.length > 0) {
                     this._items.push(val);
+                    this.lengthChanged();
                     this.render();
                 }
+            }
+
+            get length() {
+                console.log("length getter called");
+                return this._items.length;
             }
 
             clear() {
                 if (this._items.length > 0) {
                     this._items = [];
+                    this.lengthChanged();
                 }
                 this.render();
             }
 
-            removeAtIndex(index) {
-                if (index >= 0 && index < this._items.length) {
-                    this._items.splice(index, 1);
-                    this.render();
-                }
+            lengthChanged() {
+                this.dispatchEvent(new CustomEvent("lengthchanged", {
+                    detail: {
+                        length: this.length
+                    }
+                })  // end new CustomEvent()
+                ); // end dispatchEvent call
             }
+
             // ...
             // for practice, you should implement addAtIndex(), removeAtIndex(), clear() etc
         }
@@ -140,6 +150,11 @@
         window.onload = () => {
             colorList = document.querySelector("#color-list");
             movieList = document.querySelector("#movie-list");
+            inputText = document.querySelector("#input-text");
+            outputText = document.querySelector("#output-text");
+
+            // listen for the "lengthchanged" event and then update the #output-text
+            colorList.addEventListener("lengthchanged", e => outputText.innerHTML = e.detail.length);
 
             colorList.title = "Colors";
             colorList.items = ["Cyan", "Magenta"];
@@ -149,6 +164,18 @@
             movieList.title = "Movies";
             movieList.items = ["Citizen Kaine", "Casablanca", "Kind Hearts and Coronets"];
             movieList.add("Village of the Damned");
+
+            document.querySelector("#btn-add").onclick = e => {
+                const item = inputText.value.trim();
+                if (item) {
+                    colorList.add(item);
+                    inputText.value = "";
+                }
+            };
+
+            document.querySelector("#btn-clear").onclick = e => {
+                colorList.clear();
+            }
         }
     </script>
 </head>
@@ -159,6 +186,10 @@
         <my-list id="color-list"></my-list>
         <my-list id="movie-list"></my-list>
     </main>
+    <hr>
+    <p><button id="btn-add">Add Color</button><input id="input-text" type="text"></p>
+    <button id="btn-clear">Clear List</button>
+    <p>Color List length = <span id="output-text"></span></p>
 </body>
 
 </html>
