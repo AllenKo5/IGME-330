@@ -1,46 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<title>XHR - Load JSON</title>
 	<style>
-		body{
+		body {
 			font-family: sans-serif;
 		}
 	</style>
 
 </head>
+
 <body>
 	<h2>XHR - Load JSON</h2>
-	
+
 	<hr>
 	<button id="my-button">Load Data</button>
 	<div id="output">Click button to load</div>
-	
 
-<script>
-	document.querySelector("#my-button").onclick = loadJsonXHR;
-	function loadJsonXHR(){
-		const url = "https://dog.ceo/api/breeds/image/random";
-		// https://dog.ceo/api/breed/hound/images
-		const xhr = new XMLHttpRequest();
-		xhr.onload = (e) => {
-			console.log(`In onload - HTTP Status Code = ${e.target.status}`);
-			let json;
-			try{
-				json = JSON.parse(e.target.responseText);
-			}catch{
-				document.querySelector("#output").innerHTML = "<p>BAD JSON!</p>";
-				return;
+
+	<script>
+		document.querySelector("#my-button").onclick = loadJsonXHR;
+		function loadJsonXHR() {
+			const url = "https://dog.ceo/api/breed/hound/images/random/10";
+			// https://dog.ceo/api/breed/hound/images/random/10
+			const xhr = new XMLHttpRequest();
+			xhr.onload = (e) => {
+				console.log(`In onload - HTTP Status Code = ${e.target.status}`);
+				let json;
+				try {
+					json = JSON.parse(e.target.responseText);
+				} catch {
+					document.querySelector("#output").innerHTML = "<p>BAD JSON!</p>";
+					return;
+				}
+				// let html = `<img src="${json["message"]}" alt="dog"/>`;
+				// 
+
+				const dogs = json.message;
+				const output = document.querySelector("#output");
+
+				// I. String concatenation
+				// let s = "";
+				// for (let d of dogs) {
+				// 	s += `<img src="${d}" alt="dog">`
+				// }
+				// output.innerHTML = s;
+
+				// II. Create element
+				// for (let d of dogs) {
+				// 	const img = document.createElement("img");
+				// 	img.src = d;
+				// 	img.alt = "dog";
+				// 	output.appendChild(img);
+				// }
+
+				// III. Array.map()
+				output.innerHTML = dogs.map(d => `<img src=${d} alt="dog"/>`).join("");
+
+				console.log("json = ", json);
 			}
-			document.querySelector("#output").innerHTML = "<p>Some JSON was downloaded - check the console!</p>";
-			console.log("json = ",json);
+			xhr.onerror = e => console.log(`In onerror - HTTP Status Code = ${e.target.status}`);
+			xhr.open("GET", url);
+			xhr.send();
 		}
-		xhr.onerror = e => console.log(`In onerror - HTTP Status Code = ${e.target.status}`);
-		xhr.open("GET",url);
-		xhr.send();
-	}
-</script>
+	</script>
 </body>
+
 </html>
