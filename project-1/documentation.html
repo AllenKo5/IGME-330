@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yu-Gi-Oh! Card Finder</title>
+    <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <script type="module" src="src/main.js"></script>
 </head>
@@ -13,12 +14,8 @@
 <body>
     <app-header></app-header>
 
-    <nav class="navbar has-shadow is-white">
-        <!-- logo / brand -->
+    <nav class="navbar has-shadow is-link">
         <div class="navbar-brand">
-            <a class="navbar-item" href="home.html">
-                <i class="fas fa-hotdog"></i>
-            </a>
             <a class="navbar-burger" id="burger">
                 <span></span>
                 <span></span>
@@ -32,7 +29,7 @@
                     Home
                 </a>
 
-                <a class="navbar-item">
+                <a class="navbar-item is-hoverable" href="app.html">
                     App
                 </a>
 
@@ -40,14 +37,33 @@
                     Favorites
                 </a>
 
-                <a class="navbar-item is-hoverable" href="documentation.html">
+                <a class="navbar-item is-active">
                     Documentation
                 </a>
             </div> <!-- end navbar-start -->
         </div>
     </nav>
 
-    <a href="https://db.ygoprodeck.com/api-guide/">YGOPRODeck API</a>
+    <section class="section">
+        <div class="container">
+            <div class="columns is-vcentered">
+                <div class="column is-3">
+                    <h1 class="is-size-2 title">API</h1>
+                    <p>The API used for this project will be the <a href="https://db.ygoprodeck.com/api-guide/">YGOPRODeck API</a>.</p>
+                </div>
+                <div class="column is-6">
+                    <h1 class="is-size-1 title">Mockup</h1>
+                    <div id="mockup">
+                        <img src="images/yugioh-mockup.png" alt="App Mockup">
+                    </div>
+                </div>
+                <div class="column is-3">
+                    <h1 class="is-size-2 title">Functionality</h1>
+                    <p>Users will be able to search for specific cards using a series of parameters, including card name, card supertype/subtype, Type, Attribute, Level/Rank, ATK/DEF, etc. These cards can then be selected to display information about them, as well as being able to favorite them and save them to a community page displaying the most favorited cards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <app-footer></app-footer>
 </body>
