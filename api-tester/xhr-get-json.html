@@ -24,8 +24,7 @@
 	<script>
 		document.querySelector("#my-button").onclick = loadJsonXHR;
 		function loadJsonXHR() {
-			const url = "https://dog.ceo/api/breed/hound/images/random/10";
-			// https://dog.ceo/api/breed/hound/images/random/10
+			const url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?name=Aleister the Invoker";
 			const xhr = new XMLHttpRequest();
 			xhr.onload = (e) => {
 				console.log(`In onload - HTTP Status Code = ${e.target.status}`);
@@ -37,10 +36,18 @@
 					return;
 				}
 				// let html = `<img src="${json["message"]}" alt="dog"/>`;
-				// 
 
-				const dogs = json.message;
+				console.log(json["data"][0]);
+				console.log(json["data"][0]["card_images"][0]["image_url"]);
+				cardData = json["data"][0];
+				const html = `
+				<strong>${cardData.name}</strong>
+				<br>Level ${cardData.level} ${cardData.attribute} ${cardData.race} ${cardData.type}
+				<br><img src="${cardData["card_images"][0].image_url}" alt="Aleister the Invoker">
+				`;
 				const output = document.querySelector("#output");
+
+				output.innerHTML = html;
 
 				// I. String concatenation
 				// let s = "";
@@ -58,9 +65,8 @@
 				// }
 
 				// III. Array.map()
-				output.innerHTML = dogs.map(d => `<img src=${d} alt="dog"/>`).join("");
-
-				console.log("json = ", json);
+				// output.innerHTML = dogs.map(d => `<img src=${d} alt="dog"/>`).join("");
+				// console.log("json = ", json);
 			}
 			xhr.onerror = e => console.log(`In onerror - HTTP Status Code = ${e.target.status}`);
 			xhr.open("GET", url);
