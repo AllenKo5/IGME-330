@@ -8,7 +8,7 @@
   "69bab900": {
 		"type": "catnames",
 		"popularity": 4,
-		"cattitle": "Cat Names",
+		"title": "Cat Names",
 		"namelist": ["Oliver", "Leo", "Milo", "Charlie", "Simba", "Max", "Jack", "Loki", "Tiger", "Jasper", "Ollie", "Oscar", "George", "Buddy", "Toby", "Smokey", "Finn", "Felix", "Simon", "Shadow"]
   }
 }

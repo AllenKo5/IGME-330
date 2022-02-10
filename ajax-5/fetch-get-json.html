@@ -20,7 +20,36 @@
 	
 
 <script>
-	document.querySelector("#my-button").onclick = loadJsonXHR;
+	document.querySelector("#my-button").onclick = loadJsonFetch;
+
+	function loadJsonFetch() {
+		fetch("data/pet-names.json")
+		.then(response => {
+			if (response.ok) {
+				return response.json();
+			}
+			return response.text().then(text => {
+				throw text;
+			});
+		})
+		.then(json => {
+			const keys = Object.keys(json);
+			let html = "";
+			for(let k of keys){
+			//	console.log(json[k]);
+				const obj = json[k];
+				html += `<h3>${obj.title = obj.title ? obj.title : "No title Found" }</h3>`;
+				html += `<ol>${obj["namelist"].map(w => `<li>${w}</li>`).join("")}</ol>`;
+			}
+		
+			document.querySelector("#output").innerHTML = html;
+			
+		}).catch(error => {
+			// error
+			console.log(error);
+		});
+	}
+
 	function loadJsonXHR(){
 		const url = "data/pet-names.json";
 		const xhr = new XMLHttpRequest();
