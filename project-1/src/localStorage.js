@@ -27,6 +27,19 @@ export const addFavorite = (str) => {
     writeLocalStorage(allValues);
 };
 
+export const removeFavorite = (str) => {
+    const allValues = readLocalStorage();
+
+    for (let i = 0; i < allValues.favorites.length; i += 1) {
+        if (allValues.favorites[i] === str) {
+            allValues.favorites.splice(i, 1);
+            i -= 1;
+        }
+    }
+
+    writeLocalStorage(allValues);
+}
+
 export const getFavorites = () => readLocalStorage().favorites;
 
 export const clearFavorites = () => {

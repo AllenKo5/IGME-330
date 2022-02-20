@@ -16,6 +16,7 @@ const showCard = (cardInfo) => {
     favoriteCard.dataset.def = cardInfo.def ?? "";
     favoriteCard.dataset.desc = cardInfo.desc ?? "";
     favoriteCard.dataset.image = cardInfo.card_images[0].image_url ?? "";
+
     favorites.appendChild(favoriteCard);
 };
 
@@ -36,6 +37,8 @@ const showFavorites = () => {
             url += `${cards[i]}|`;
         }
     }
+    
+    console.log(url);
 
     const fetchPromise = async () => {
         const response = await fetch(url);
@@ -44,6 +47,13 @@ const showFavorites = () => {
         }
         const json = await response.json();
 
+        // Sorts image urls by id
+        for (let j of json.data) {
+            j.card_images.sort((a, b) => {
+                return a.id - b.id;
+            });
+        }
+        
         console.log(json);
         // Call showcard for each card within the filtered results
         for (let i = 0; i < json.data.length; i += 1) {

@@ -6,23 +6,42 @@ template.innerHTML = `
 <style>
 div{
     white-space: pre-line;
-    width: 20rem;
+    width: 275px;
+    height: 550px;
     border-radius: 1rem;
     margin: 0.5rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     padding-bottom: 0.5rem;
     background-color: #f4f4f4;
-    font-size: 0.7rem;
+    overflow: scroll;
     position: relative;
+}
+h2{
+    font-size: 1.2rem;
+}
+img{
+    width: 90%;
+}
+@media only screen and (min-width: 768px){
+    div{
+        width: 300px;
+        height: 600px;
+    }
+}
+@media only screen and (min-width: 1024px){
+    div{
+        width: 350px;
+        height: 700px;
+    }
 }
 </style>
 <div>
-    <h1 class="subtitle my-0"></h1>
+    <button class="button is-danger is-light is-outlined">Add to Favorites</button>
+    <h1 class="title mt-1 mb-0"></h1>
     <img alt="card">
-    <h2 class="is-size-6"></h2>
-    <p class="is-size-7"><p>
-    <button class="button is-danger">Add to Favorites</button>
+    <h2></h2>
+    <p></p>
 </div>
 `;
 
@@ -41,7 +60,16 @@ class YGOCard extends HTMLElement {
 
     connectedCallback() {
         this.button.onclick = () => {
-            storage.addFavorite(this.getAttribute("data-name"));
+            const name = this.getAttribute("data-name");
+            if (storage.getFavorites().includes(name)) {
+                storage.removeFavorite(name);
+                this.button.className = "button is-danger is-light";
+                this.button.innerHTML = "Add to Favorites";
+            } else {
+                storage.addFavorite(name);
+                this.button.className = "button is-danger";
+                this.button.innerHTML = "Favorited!";
+            }
         };
         this.render();
     }
@@ -59,8 +87,13 @@ class YGOCard extends HTMLElement {
 
         this.h1.innerHTML = `${name}`;
         this.img.src = imgUrl;
+        this.img.alt = name;
         this.h2.innerHTML = `${level} ${attribute} ${race} ${type}`;
         this.p.innerHTML = `${atk} ${def} ${desc}`;
+        if (storage.getFavorites().includes(name)) {
+            this.button.className = "button is-danger";
+            this.button.innerHTML = "Favorited!";
+        }
     }
 }
 

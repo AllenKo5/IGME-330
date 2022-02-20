@@ -2,17 +2,17 @@ import "./main.js";
 import * as storage from "./localStorage.js";
 
 const cardName = document.querySelector("#card-name"),
-cardType = document.querySelector("#card-type"),
-subType = document.querySelector("#sub-type"),
-cardRace = document.querySelector("#card-race"),
-cardAttribute = document.querySelector("#card-attribute"),
-cardLevel = document.querySelector("#card-level"),
-cardAtk = document.querySelector("#card-atk"),
-cardDef = document.querySelector("#card-def"),
-maxResults = document.querySelector("#max-results"),
-searchButton = document.querySelector("#search-button"),
-clearButton = document.querySelector("#clear-button"),
-content = document.querySelector("#content");
+    cardType = document.querySelector("#card-type"),
+    subType = document.querySelector("#sub-type"),
+    cardRace = document.querySelector("#card-race"),
+    cardAttribute = document.querySelector("#card-attribute"),
+    cardLevel = document.querySelector("#card-level"),
+    cardAtk = document.querySelector("#card-atk"),
+    cardDef = document.querySelector("#card-def"),
+    maxResults = document.querySelector("#max-results"),
+    searchButton = document.querySelector("#search-button"),
+    clearButton = document.querySelector("#clear-button"),
+    content = document.querySelector("#content");
 
 const addSubType = () => {
     switch (cardType.value) {
@@ -85,7 +85,7 @@ const addSubType = () => {
             cardAtk.disabled = false;
             cardDef.disabled = false;
             break;
-        case "spell":
+        case "spell card":
             subType.innerHTML = "";
             subType.disabled = true;
             cardRace.innerHTML = `
@@ -103,7 +103,7 @@ const addSubType = () => {
             cardAtk.disabled = true;
             cardDef.disabled = true;
             break;
-        case "trap":
+        case "trap card":
             subType.innerHTML = "";
             subType.disabled = true;
             cardRace.innerHTML = `
@@ -143,6 +143,7 @@ const showCard = (cardInfo) => {
     ygoCard.dataset.def = cardInfo.def ?? "";
     ygoCard.dataset.desc = cardInfo.desc ?? "";
     ygoCard.dataset.image = cardInfo.card_images[0].image_url ?? "";
+
     content.appendChild(ygoCard);
 };
 
@@ -198,6 +199,13 @@ const searchButtonClicked = () => {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const json = await response.json();
+
+        // Sorts image urls by id
+        for (let j of json.data) {
+            j.card_images.sort((a, b) => {
+                return a.id - b.id;
+            });
+        }
 
         console.log(json);
         // Call showcard for each card within the filtered results

@@ -2,17 +2,6 @@ body {
     user-select: none;
 }
 
-select {
-    width: 15rem;
-}
-
-#logo {
-    width: 40%;
-    padding: 1rem;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 #content, #favorites {
     display: flex;
     justify-content: center;
@@ -20,25 +9,74 @@ select {
 }
 
 #wrapper {
-    width: 60%;
+    width: 90%;
     padding: 1rem;
     margin: auto;
     border-radius: 1rem;
     background-color: lightgray;
 }
 
-#card-atk, #card-def {
-    width: 15rem;
-}
-
-.section {
-    padding: 0px;
+#random-card {
+    width: 80%;
     margin: 1rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.param {
-    margin: 0.2rem;
-    display: flex;
-    align-items: center;
-    column-gap: 1rem;
+select, #card-atk, #card-def {
+    width: 300px;
+}
+
+@media only screen and (min-width: 768px){
+
+    #random-card {
+        width: 50%;
+        margin: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    select, #card-atk, #card-def {
+        width: 240px;
+    }
+
+    .param {
+        margin: 0.2rem;
+        display: flex;
+        align-items: center;
+        column-gap: 1rem;
+    }
+}
+
+@media only screen and (min-width: 1024px){
+    #wrapper {
+        width: 60%;
+        padding: 1rem;
+        margin: auto;
+        border-radius: 1rem;
+        background-color: lightgray;
+    }
+
+    #random-card {
+        width: 20%;
+        margin: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    select, #card-atk, #card-def {
+        width: 200px;
+    }
+    
+    .section {
+        padding: 0px;
+        margin: 1rem;
+    }
+
+    .param {
+        margin: 0.2rem;
+        display: flex;
+        align-items: center;
+        column-gap: 1rem;
+    }
 }

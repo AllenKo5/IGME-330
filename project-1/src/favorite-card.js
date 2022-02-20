@@ -1,26 +1,44 @@
-
 const template = document.createElement("template");
 template.innerHTML = `
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 <style>
 div{
     white-space: pre-line;
-    width: 20rem;
+    width: 275px;
+    height: 550px;
     border-radius: 1rem;
     margin: 0.5rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     padding-bottom: 0.5rem;
     background-color: #f4f4f4;
-    font-size: 0.7rem;
+    overflow: scroll;
     position: relative;
+}
+h2{
+    font-size: 1.2rem;
+}
+img{
+    width: 90%;
+}
+@media only screen and (min-width: 768px){
+    div{
+        width: 250px;
+        height: 500px;
+    }
+}
+@media only screen and (min-width: 1024px){
+    div{
+        width: 350px;
+        height: 700px;
+    }
 }
 </style>
 <div>
-    <h1 class="subtitle my-0"></h1>
+    <h1 class="title mt-1 mb-0"></h1>
     <img alt="card">
-    <h2 class="is-size-6"></h2>
-    <p class="is-size-7"><p>
+    <h2></h2>
+    <p></p>
 </div>
 `;
 
@@ -53,6 +71,7 @@ class FavoriteCard extends HTMLElement {
 
         this.h1.innerHTML = `${name}`;
         this.img.src = imgUrl;
+        this.img.alt = name;
         this.h2.innerHTML = `${level} ${attribute} ${race} ${type}`;
         this.p.innerHTML = `${atk} ${def} ${desc}`;
     }
