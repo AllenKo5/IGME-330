@@ -8,12 +8,12 @@
     <title>Yu-Gi-Oh! Card Finder</title>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <script type="module" src="src/main.js"></script>
+    <script type="module" src="src/favorites.js"></script>
 </head>
 
 <body>
     <app-header></app-header>
-    
+
     <nav class="navbar has-shadow is-link">
         <div class="navbar-brand">
             <a class="navbar-burger" id="burger">
@@ -44,7 +44,13 @@
         </div>
     </nav>
 
-    <div style="padding: 1rem">Functionality to be implemented later</div>
+    <section class="section">
+        <h1 class="title">Instructions</h1>
+        Check out your favorites below!<br>
+        <button id="clear-favorites" class="button is-warning">Clear All Favorites</button>
+    </section>
+
+    <div id="favorites"></div>
 
     <app-footer></app-footer>
 </body>

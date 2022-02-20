@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yu-Gi-Oh! Card Finder</title>
-    <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <script type="module" src="src/main.js"></script>
+    <link rel="stylesheet" href="styles/main.css">
+    <script type="module" src="src/app.js"></script>
 </head>
 
 <body>
     <app-header></app-header>
-    
+
     <nav class="navbar has-shadow is-link">
         <div class="navbar-brand">
             <a class="navbar-burger" id="burger">
@@ -44,7 +44,76 @@
         </div>
     </nav>
 
-    <div style="padding: 1rem">Functionality to be implemented later</div>
+    <section class="section">
+        <div id="wrapper">
+            <div class="param">
+                Name
+                <input id="card-name" class="input" type="text" placeholder="Card name">
+            </div>
+
+            <div class="param">
+                Card
+                <div class="select">
+                    <select id="card-type">
+                        <option value="none"></option>
+                        <option value="monster">Monster</option>
+                        <option value="spell card">Spell</option>
+                        <option value="trap card">Trap</option>
+                    </select>
+                </div>
+                <div class="select">
+                    <select id="sub-type" disabled>
+                        <option value="none"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="param">
+                Type
+                <div class="select">
+                    <select id="card-race" disabled>
+                        <option value="none"></option>
+                    </select>
+                </div>
+                Attribute
+                <div class="select">
+                    <select id="card-attribute" disabled>
+                        <option value="none"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="param">
+                ATK
+                <input id="card-atk" class="input" type="text" placeholder="ATK" disabled>
+                DEF
+                <input id="card-def" class="input" type="text" placeholder="DEF" disabled>
+            </div>
+
+            <div class="param">
+                Level
+                <div class="select">
+                    <select id="card-level" disabled>
+                        <option value="none"></option>
+                    </select>
+                </div>
+                Max Results
+                <div class="select">
+                    <select id="max-results">
+                        <option value="1">1</option>
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+            </div>
+
+            <button id="search-button" class="button is-primary">Search</button>
+            <button id="clear-button" class="button is-warning">Clear Results</button>
+        </div>
+    </section>
+
+    <div id="content"></div>
 
     <app-footer></app-footer>
 </body>

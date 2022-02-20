@@ -1,4 +1,3 @@
-import * as storage from "./localStorage.js";
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -22,27 +21,22 @@ div{
     <img alt="card">
     <h2 class="is-size-6"></h2>
     <p class="is-size-7"><p>
-    <button class="button is-danger">Add to Favorites</button>
 </div>
 `;
 
-class YGOCard extends HTMLElement {
+class FavoriteCard extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
 
         this.h1 = this.shadowRoot.querySelector("h1");
-        this.button = this.shadowRoot.querySelector("button");
         this.img = this.shadowRoot.querySelector("img");
         this.h2 = this.shadowRoot.querySelector("h2");
         this.p = this.shadowRoot.querySelector("p");
     }
 
     connectedCallback() {
-        this.button.onclick = () => {
-            storage.addFavorite(this.getAttribute("data-name"));
-        };
         this.render();
     }
 
@@ -64,4 +58,4 @@ class YGOCard extends HTMLElement {
     }
 }
 
-customElements.define('ygo-card', YGOCard);
+customElements.define('favorite-card', FavoriteCard);
