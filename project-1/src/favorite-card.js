@@ -1,3 +1,5 @@
+import * as storage from "./localStorage.js";
+
 const template = document.createElement("template");
 template.innerHTML = `
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
@@ -35,6 +37,7 @@ img{
 }
 </style>
 <div>
+    <button class="button is-danger is-outlined">Remove from Favorites</button>
     <h1 class="title mt-1 mb-0"></h1>
     <img alt="card">
     <h2></h2>
@@ -48,6 +51,7 @@ class FavoriteCard extends HTMLElement {
         this.attachShadow({ mode: "open" });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
 
+        this.button = this.shadowRoot.querySelector("button");
         this.h1 = this.shadowRoot.querySelector("h1");
         this.img = this.shadowRoot.querySelector("img");
         this.h2 = this.shadowRoot.querySelector("h2");
@@ -55,7 +59,18 @@ class FavoriteCard extends HTMLElement {
     }
 
     connectedCallback() {
+        this.button.onclick = () => {
+            const name = this.getAttribute("data-name");
+            if (storage.getFavorites().includes(name)) {
+                storage.removeFavorite(name);
+                this.remove();
+            }
+        }
         this.render();
+    }
+
+    disconnectedCallback() {
+        this.button.onclick = null;
     }
 
     render() {

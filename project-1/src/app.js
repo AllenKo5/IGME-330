@@ -1,5 +1,4 @@
 import "./main.js";
-import * as storage from "./localStorage.js";
 
 const cardName = document.querySelector("#card-name"),
     cardType = document.querySelector("#card-type"),
