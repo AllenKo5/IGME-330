@@ -148,6 +148,8 @@ const showCard = (cardInfo) => {
 
 // Displays cards when search button is clicked
 const searchButtonClicked = () => {
+    searchButton.className = "button is-primary is-loading";
+
     const YGOPRO_URL = "https://db.ygoprodeck.com/api/v7/cardinfo.php?";
     let url = YGOPRO_URL;
 
@@ -211,11 +213,14 @@ const searchButtonClicked = () => {
         for (let i = 0; i < json.data.length && i < maxResults.value; i += 1) {
             showCard(json.data[i]);
         }
+
+        searchButton.className = "button is-primary";
     };
 
     fetchPromise().catch((e) => {
         console.log(`In catch with e = ${e}`);
         content.innerHTML = "No results found!";
+        searchButton.className = "button is-primary";
     });
 };
 
