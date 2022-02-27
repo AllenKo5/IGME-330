@@ -1,4 +1,5 @@
 import "./main.js";
+import * as storage from "./localStorage.js";
 
 const cardName = document.querySelector("#card-name"),
     cardType = document.querySelector("#card-type"),
@@ -215,17 +216,38 @@ const searchButtonClicked = () => {
         }
 
         searchButton.className = "button is-primary";
+        storage.setContent(content.innerHTML);
     };
 
     fetchPromise().catch((e) => {
         console.log(`In catch with e = ${e}`);
         content.innerHTML = "No results found!";
         searchButton.className = "button is-primary";
+        storage.setContent("");
     });
 };
 
-cardType.onchange = addSubType;
-searchButton.onclick = searchButtonClicked;
-clearButton.onclick = () => {
-    content.innerHTML = "";
-};
+const init = () => {
+    if (storage.getName() != "") {
+        cardName.value = storage.getName();
+    }
+    cardName.oninput = () => storage.setName(cardName.value);
+
+    maxResults.value = storage.getResults();
+    maxResults.onchange = () => storage.setResults(maxResults.value);
+
+    if (storage.getContent() != "") {
+        content.innerHTML = storage.getContent();
+    }
+
+    cardType.onchange = addSubType;
+    searchButton.onclick = searchButtonClicked;
+    clearButton.onclick = () => {
+        content.innerHTML = "";
+        storage.setContent("");
+    };
+}
+
+init();
+
+

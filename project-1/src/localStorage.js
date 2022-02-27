@@ -1,4 +1,4 @@
-const defaultData = { "favorites": [] },
+const defaultData = { "favorites": [], "name": "", "results": 10, "content": "" },
     storeName = "ask9458-p1-favorites";
 
 const readLocalStorage = () => {
@@ -22,7 +22,6 @@ export const clearLocalStorage = () => writeLocalStorage(defaultData);
 
 export const addFavorite = (str) => {
     const allValues = readLocalStorage();
-
     allValues.favorites.push(str);
     writeLocalStorage(allValues);
 };
@@ -44,7 +43,30 @@ export const getFavorites = () => readLocalStorage().favorites;
 
 export const clearFavorites = () => {
     const allValues = readLocalStorage();
-
     allValues.favorites = [];
     writeLocalStorage(allValues);
 };
+
+export const setName = (str) => {
+    const allValues = readLocalStorage();
+    allValues.name = str;
+    writeLocalStorage(allValues);
+}
+
+export const getName = () => readLocalStorage().name;
+
+export const setResults = (num) => {
+    const allValues = readLocalStorage();
+    allValues.results = num;
+    writeLocalStorage(allValues);
+}
+
+export const getResults = () => readLocalStorage().results;
+
+export const setContent = (str) => {
+    const allValues = readLocalStorage();
+    allValues.content = str;
+    writeLocalStorage(allValues);
+}
+
+export const getContent = () => readLocalStorage().content;
