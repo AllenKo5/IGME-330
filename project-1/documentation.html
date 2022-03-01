@@ -14,35 +14,7 @@
 <body>
     <app-header></app-header>
 
-    <nav class="navbar has-shadow is-link">
-        <div class="navbar-brand">
-            <a class="navbar-burger" id="burger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </a>
-        </div>
-
-        <div class="navbar-menu" id="nav-links">
-            <div class="navbar-start">
-                <a class="navbar-item is-hoverable" href="home.html">
-                    Home
-                </a>
-
-                <a class="navbar-item is-hoverable" href="app.html">
-                    App
-                </a>
-
-                <a class="navbar-item is-hoverable" href="favorites.html">
-                    Favorites
-                </a>
-
-                <a class="navbar-item is-active">
-                    Documentation
-                </a>
-            </div> <!-- end navbar-start -->
-        </div>
-    </nav>
+    <app-navbar data-currentpage="documentation"></app-navbar>
 
     <section class="section">
         <div class="container">
@@ -105,7 +77,13 @@
         </div>
     </section>
 
-    <app-footer></app-footer>
+    <app-footer>
+        <span>
+            &copy;2022 Yu-Gi-Oh! Card Finder by <strong>Allen Ko</strong>
+            <br>Powered by <a href="https://db.ygoprodeck.com/api-guide/">YGOPRODeck</a>, a Yu-Gi-Oh! card database and
+            deck-sharing site
+        </span>
+    </app-footer>
 </body>
 
 </html>

@@ -1,4 +1,5 @@
 import "./main.js";
+import { loadFile } from "./utils.js";
 import * as storage from "./localStorage.js";
 
 const cardName = document.querySelector("#card-name"),
@@ -14,7 +15,7 @@ const cardName = document.querySelector("#card-name"),
     clearButton = document.querySelector("#clear-button"),
     content = document.querySelector("#content");
 
-const addSubType = () => {
+const addTypes = () => {
     switch (cardType.value) {
         case "monster":
             subType.innerHTML = `
@@ -147,6 +148,30 @@ const showCard = (cardInfo) => {
     content.appendChild(ygoCard);
 };
 
+const addCards = json => {
+    // Sorts image urls by id
+    for (let j of json.data) {
+        j.card_images.sort((a, b) => {
+            return a.id - b.id;
+        });
+    }
+
+    console.log(json);
+    // Call showcard for each card within the filtered results
+    for (let i = 0; i < json.data.length && i < maxResults.value; i += 1) {
+        showCard(json.data[i]);
+    }
+
+    searchButton.className = "button is-primary";
+    storage.setContent(content.innerHTML);
+}
+
+const errorMessage = () => {
+    content.innerHTML = "No results found!";
+    searchButton.className = "button is-primary";
+    storage.setContent("");
+}
+
 // Displays cards when search button is clicked
 const searchButtonClicked = () => {
     searchButton.className = "button is-primary is-loading";
@@ -194,53 +219,19 @@ const searchButtonClicked = () => {
 
     console.log(url);
 
-    // Get JSON from API using fetch
-    const fetchPromise = async () => {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const json = await response.json();
-
-        // Sorts image urls by id
-        for (let j of json.data) {
-            j.card_images.sort((a, b) => {
-                return a.id - b.id;
-            });
-        }
-
-        console.log(json);
-        // Call showcard for each card within the filtered results
-        for (let i = 0; i < json.data.length && i < maxResults.value; i += 1) {
-            showCard(json.data[i]);
-        }
-
-        searchButton.className = "button is-primary";
-        storage.setContent(content.innerHTML);
-    };
-
-    fetchPromise().catch((e) => {
-        console.log(`In catch with e = ${e}`);
-        content.innerHTML = "No results found!";
-        searchButton.className = "button is-primary";
-        storage.setContent("");
-    });
+    loadFile(url, addCards, errorMessage);
 };
 
 const init = () => {
-    if (storage.getName() != "") {
-        cardName.value = storage.getName();
-    }
+    cardName.value = storage.getName();
     cardName.oninput = () => storage.setName(cardName.value);
 
     maxResults.value = storage.getResults();
     maxResults.onchange = () => storage.setResults(maxResults.value);
 
-    if (storage.getContent() != "") {
-        content.innerHTML = storage.getContent();
-    }
+    content.innerHTML = storage.getContent();
 
-    cardType.onchange = addSubType;
+    cardType.onchange = addTypes;
     searchButton.onclick = searchButtonClicked;
     clearButton.onclick = () => {
         content.innerHTML = "";
@@ -249,5 +240,3 @@ const init = () => {
 }
 
 init();
-
-

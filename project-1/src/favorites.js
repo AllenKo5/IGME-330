@@ -1,5 +1,6 @@
 import "./main.js";
 import "./favorite-card.js";
+import { loadFile } from "./utils.js";
 import * as storage from "./localStorage.js";
 
 const favorites = document.querySelector("#favorites");
@@ -20,6 +21,21 @@ const showCard = (cardInfo) => {
     favorites.appendChild(favoriteCard);
 };
 
+const addCards = json => {
+    // Sorts image urls by id
+    for (let j of json.data) {
+        j.card_images.sort((a, b) => {
+            return a.id - b.id;
+        });
+    }
+
+    console.log(json);
+    // Call showcard for each card within the filtered results
+    for (let i = 0; i < json.data.length; i += 1) {
+        showCard(json.data[i]);
+    }
+}
+
 const showFavorites = () => {
     favorites.innerHTML = "";
     const cards = storage.getFavorites();
@@ -37,33 +53,9 @@ const showFavorites = () => {
             url += `${cards[i]}|`;
         }
     }
-    
+
     console.log(url);
-
-    const fetchPromise = async () => {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const json = await response.json();
-
-        // Sorts image urls by id
-        for (let j of json.data) {
-            j.card_images.sort((a, b) => {
-                return a.id - b.id;
-            });
-        }
-        
-        console.log(json);
-        // Call showcard for each card within the filtered results
-        for (let i = 0; i < json.data.length; i += 1) {
-            showCard(json.data[i]);
-        }
-    };
-
-    fetchPromise().catch((e) => {
-        console.log(`In catch with e = ${e}`);
-    });
+    loadFile(url, addCards, () => { return; });
 }
 
 const init = () => {

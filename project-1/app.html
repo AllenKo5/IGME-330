@@ -14,41 +14,18 @@
 <body>
     <app-header></app-header>
 
-    <nav class="navbar has-shadow is-link">
-        <div class="navbar-brand">
-            <a class="navbar-burger" id="burger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </a>
-        </div>
+    <app-navbar data-currentpage="app"></app-navbar>
 
-        <div class="navbar-menu" id="nav-links">
-            <div class="navbar-start">
-                <a class="navbar-item is-hoverable" href="home.html">
-                    Home
-                </a>
-
-                <a class="navbar-item is-active">
-                    App
-                </a>
-
-                <a class="navbar-item is-hoverable" href="favorites.html">
-                    Favorites
-                </a>
-
-                <a class="navbar-item is-hoverable" href="documentation.html">
-                    Documentation
-                </a>
-            </div> <!-- end navbar-start -->
-        </div>
-    </nav>
+    <section class="section has-text-centered">
+        <h1 class="title">Instructions</h1>
+        Choose your parameters below (none are required)
+    </section>
 
     <section class="section">
         <div id="wrapper">
             <div class="param">
                 Name
-                <input id="card-name" class="input" type="text" placeholder="Card name">
+                <input id="card-name" class="input" type="text" placeholder="Dark Magician">
             </div>
 
             <div class="param">
@@ -115,7 +92,13 @@
 
     <div id="content"></div>
 
-    <app-footer></app-footer>
+    <app-footer>
+        <span>
+            &copy;2022 Yu-Gi-Oh! Card Finder by <strong>Allen Ko</strong>
+            <br>Powered by <a href="https://db.ygoprodeck.com/api-guide/">YGOPRODeck</a>, a Yu-Gi-Oh! card database and
+            deck-sharing site
+        </span>
+    </app-footer>
 </body>
 
 </html>
