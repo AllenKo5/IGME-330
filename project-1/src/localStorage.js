@@ -1,5 +1,10 @@
-const defaultData = { "favorites": [], "name": "", "results": 10, "content": "" },
-    storeName = "ask9458-p1-favorites";
+const defaultData = {
+    "favorites": [],
+    "name": "",
+    "results": 10,
+    "content": ""
+},
+storeName = "ask9458-p1-settings";
 
 const readLocalStorage = () => {
     let allValues = null;

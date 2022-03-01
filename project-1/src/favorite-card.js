@@ -58,7 +58,6 @@ class FavoriteCard extends HTMLElement {
         this.img = this.shadowRoot.querySelector("img");
         this.h2 = this.shadowRoot.querySelector("h2");
         this.p = this.shadowRoot.querySelector("p");
-        
 
         this.button.onclick = () => {
             const name = this.getAttribute("data-name");

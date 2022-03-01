@@ -53,8 +53,8 @@ class AppNavbar extends HTMLElement {
         this.navbarMenu = this.shadowRoot.querySelector("#nav-links");
         this.shadowRoot.querySelector(`#${this.dataset.currentpage || "home"}`).className = "navbar-item is-active";
         
-        burgerIcon.onclick = () => {
-            navbarMenu.classList.toggle("is-active");
+        this.burgerIcon.onclick = () => {
+            this.navbarMenu.classList.toggle("is-active");
         }
     }
 }
