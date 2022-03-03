@@ -15,6 +15,7 @@ const cardName = document.querySelector("#card-name"),
     clearButton = document.querySelector("#clear-button"),
     content = document.querySelector("#content");
 
+// Sets up card types when specific variables are clicked
 const addTypes = () => {
     switch (cardType.value) {
         case "monster":
@@ -148,6 +149,7 @@ const showCard = (cardInfo) => {
     content.appendChild(ygoCard);
 };
 
+// Function for adding cards
 const addCards = json => {
     // Sorts image urls by id
     for (let j of json.data) {
@@ -155,8 +157,8 @@ const addCards = json => {
             return a.id - b.id;
         });
     }
-
     console.log(json);
+
     // Call showcard for each card within the filtered results
     for (let i = 0; i < json.data.length && i < maxResults.value; i += 1) {
         showCard(json.data[i]);
@@ -166,6 +168,7 @@ const addCards = json => {
     storage.setContent(content.innerHTML);
 }
 
+// Displays error message
 const errorMessage = () => {
     content.innerHTML = "No results found!";
     searchButton.className = "button is-primary";
@@ -184,7 +187,6 @@ const searchButtonClicked = () => {
 
     // Reading in parameters
     let term = "";
-
     if (cardName.value) {
         term = cardName.value.trim();
         term = encodeURIComponent(term);
@@ -216,22 +218,21 @@ const searchButtonClicked = () => {
     if (!isNaN(cardDef.value) && !isNaN(parseFloat(cardDef.value))) {
         url += `&def=${cardDef.value}`;
     }
-
     console.log(url);
 
     loadFile(url, addCards, errorMessage);
 };
 
+// Initialize statement
 const init = () => {
     cardName.value = storage.getName();
     cardName.oninput = () => storage.setName(cardName.value);
-
     maxResults.value = storage.getResults();
     maxResults.onchange = () => storage.setResults(maxResults.value);
+    cardType.onchange = addTypes;
 
     content.innerHTML = storage.getContent();
-
-    cardType.onchange = addTypes;
+    
     searchButton.onclick = searchButtonClicked;
     clearButton.onclick = () => {
         content.innerHTML = "";

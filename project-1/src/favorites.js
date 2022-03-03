@@ -3,8 +3,10 @@ import "./favorite-card.js";
 import { loadFile } from "./utils.js";
 import * as storage from "./localStorage.js";
 
-const favorites = document.querySelector("#favorites");
+const favorites = document.querySelector("#favorites"),
+clearFavoriteButton = document.querySelector("#clear-favorites");
 
+// Creates card with specified dataset
 const showCard = (cardInfo) => {
     const favoriteCard = document.createElement("favorite-card");
 
@@ -21,6 +23,7 @@ const showCard = (cardInfo) => {
     favorites.appendChild(favoriteCard);
 };
 
+// Function for adding cards
 const addCards = json => {
     // Sorts image urls by id
     for (let j of json.data) {
@@ -36,6 +39,7 @@ const addCards = json => {
     }
 }
 
+// Displays all favorited cards
 const showFavorites = () => {
     favorites.innerHTML = "";
     const cards = storage.getFavorites();
@@ -58,9 +62,10 @@ const showFavorites = () => {
     loadFile(url, addCards, () => { return; });
 }
 
+// Initialize statement
 const init = () => {
     showFavorites();
-    document.querySelector("#clear-favorites").onclick = () => {
+    clearFavoriteButton.onclick = () => {
         storage.clearFavorites();
         showFavorites();
     };

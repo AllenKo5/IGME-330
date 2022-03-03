@@ -32,6 +32,10 @@ template.innerHTML = `
                 Favorites
             </a>
 
+            <a id="community" class="navbar-item is-hoverable" href="community.html">
+                Community
+            </a>
+
             <a id="documentation" class="navbar-item is-hoverable" href="documentation.html">
                 Documentation
             </a>

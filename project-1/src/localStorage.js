@@ -1,6 +1,6 @@
 const defaultData = {
     "favorites": [],
-    "name": "",
+    "name": "Dark Magician",
     "results": 10,
     "content": ""
 },

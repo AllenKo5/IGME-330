@@ -3,6 +3,7 @@ import {loadFile} from "./utils.js";
 
 const randomCard = document.querySelector("#random-card");
 
+// Displays random card
 const displayCard = json => {
     // Sorts image urls by id
     json.card_images.sort((a, b) => {
@@ -16,10 +17,12 @@ const displayCard = json => {
     randomCard.appendChild(randomImage);
 }
 
+// Displays error message
 const errorMessage = () => {
     randomCard.innerHTML = "Unable to get card from database!";
 }
 
+// Initialize function
 const init = () => {
     randomCard.innerHTML = "";
 

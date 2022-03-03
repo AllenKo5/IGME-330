@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yu-Gi-Oh! Card Finder</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script type="module" src="src/community.js"></script>
+</head>
+
+<body>
+    <app-header>
+        <span>
+            Yu-Gi-Oh! Card Finder
+        </span>
+    </app-header>
+
+    <app-navbar data-currentpage="community"></app-navbar>
+
+    <section class="section">
+        <h1 class="title">Instructions</h1>
+        <div class="mb-4">
+            Check out the community favorites!
+        </div>
+    </section>
+
+    <section class="section">
+        <div id="community-favorites"></div>
+    </section>
+
+    <app-footer>
+        <span>
+            &copy;2022 Yu-Gi-Oh! Card Finder by <strong>Allen Ko</strong>
+            <br>Powered by <a href="https://db.ygoprodeck.com/api-guide/">YGOPRODeck</a>, a Yu-Gi-Oh! card database and
+            deck-sharing site
+        </span>
+    </app-footer>
+</body>
+
+</html>
