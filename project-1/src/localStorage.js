@@ -4,7 +4,7 @@ const defaultData = {
     "results": 10,
     "content": ""
 },
-storeName = "ask9458-p1-settings";
+storeName = "ask9458-project1-settings";
 
 const readLocalStorage = () => {
     let allValues = null;
