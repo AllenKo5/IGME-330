@@ -3,8 +3,11 @@ import "./favorite-card.js";
 import { loadFile } from "./utils.js";
 import * as storage from "./localStorage.js";
 
+let currentPage = 0;
 const favorites = document.querySelector("#favorites"),
-clearFavoriteButton = document.querySelector("#clear-favorites");
+    clearFavoriteButton = document.querySelector("#clear-favorites"),
+    prevButton = document.querySelector("#previous-button"),
+    nextButton = document.querySelector("#next-button");
 
 // Creates card with specified dataset
 const showCard = (cardInfo) => {
@@ -34,7 +37,7 @@ const addCards = json => {
 
     console.log(json);
     // Call showcard for each card within the filtered results
-    for (let i = 0; i < json.data.length; i += 1) {
+    for (let i = currentPage * 10; i < json.data.length && i < (currentPage * 10) + 10; i += 1) {
         showCard(json.data[i]);
     }
 }
@@ -46,8 +49,22 @@ const showFavorites = () => {
     let url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?name=";
 
     if (cards.length === 0) {
+        prevButton.disabled = true;
+        nextButton.disabled = true;
         favorites.innerHTML = "There are currently no favorites!";
         return;
+    } else if (cards.length < 10) {
+        prevButton.disabled = true;
+        nextButton.disabled = true;
+    } else if (currentPage === 0) {
+        prevButton.disabled = true;
+        nextButton.disabled = false;
+    } else if (currentPage === Math.floor(cards.length / 10)) {
+        prevButton.disabled = false;
+        nextButton.disabled = true;
+    } else {
+        prevButton.disabled = false;
+        nextButton.disabled = false;
     }
 
     for (let i = 0; i < cards.length; i += 1) {
@@ -69,6 +86,14 @@ const init = () => {
         storage.clearFavorites();
         showFavorites();
     };
+    prevButton.onclick = () => {
+        currentPage -= 1;
+        showFavorites();
+    }
+    nextButton.onclick = () => {
+        currentPage += 1;
+        showFavorites();
+    }
 }
 
 init();
