@@ -3,8 +3,6 @@ body {
 }
 
 #top-button {
-    color: white;
-    background-color: gray;
     position: fixed;
     bottom: 1rem;
     right: 1rem;
