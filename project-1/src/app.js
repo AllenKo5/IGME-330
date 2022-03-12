@@ -267,6 +267,8 @@ const init = () => {
     clearButton.onclick = () => {
         content.innerHTML = "";
         storage.setContent("");
+        prevButton.disabled = true;
+        nextButton.disabled = true;
     };
     prevButton.onclick = () => {
         currentPage -= 1;

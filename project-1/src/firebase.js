@@ -31,7 +31,6 @@ const hashCode2 = (str) => {
 };
 
 const app = initializeApp(firebaseConfig);
-console.log(app);
 const db = getDatabase();
 
 export { db, likedCardsPath, ref, set, push, pushCardToCloud, onValue };

@@ -86,6 +86,7 @@ const cardsChanged = (snapshot) => {
         }
     });
     url = url.slice(0, -1);
+    console.log(url);
     showCommunityFavorites();
 };
 

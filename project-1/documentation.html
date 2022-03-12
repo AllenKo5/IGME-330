@@ -25,11 +25,10 @@
             <h1 class="is-size-1 title">Documentation</h1>
             <h2 class="subtitle mt-2 mb-0">Project Requirements</h2>
             <ul>
-                <li><a href="https://github.com/tonethar/IGME-330-Spring-2022/blob/main/projects/p1-checkpoint-2.md">https://github.com/tonethar/IGME-330-Spring-2022/blob/main/projects/p1-checkpoint-2.md</a></li>
+                <li><a href="https://github.com/tonethar/IGME-330-Spring-2022/blob/main/projects/p1-final.md">https://github.com/tonethar/IGME-330-Spring-2022/blob/main/projects/p1-final.md</a></li>
             </ul>
             <h2 class="subtitle mt-2 mb-0">Resources Utilized</h2>
             <ul>
-                <li><a href="https://github.com/tonethar/IGME-330-Master/blob/master/notes/hash-as-key.md">https://github.com/tonethar/IGME-330-Master/blob/master/notes/hash-as-key.md</a></li>
                 <li><a href="https://bulma.io/documentation/">https://bulma.io/documentation/</a></li>
                 <li><a href="https://www.w3schools.com/jsref/event_onchange.asp">https://www.w3schools.com/jsref/event_onchange.asp</a></li>
                 <li><a href="https://www.w3schools.com/css/css3_borders.asp">https://www.w3schools.com/css/css3_borders.asp</a></li>
@@ -43,19 +42,37 @@
             </ul>
             <h2 class="subtitle mt-2 mb-0">API</h2>
             <ul>
-                <li>API Home: <a href="https://db.ygoprodeck.com/">https://db.ygoprodeck.com/</a></li>
-                <li>API Documentation: <a href="https://db.ygoprodeck.com/api-guide/">https://db.ygoprodeck.com/api-guide/</a></li>
-                <li>Endpoint: <a href="https://db.ygoprodeck.com/api/v7/cardinfo.php?">https://db.ygoprodeck.com/api/v7/cardinfo.php?</a></li>
-                <li>Random Endpoint: <a href="https://db.ygoprodeck.com/api/v7/randomcard.php">https://db.ygoprodeck.com/api/v7/randomcard.php</a></li>
+                <li><strong>API Home:</strong> <a href="https://db.ygoprodeck.com/">https://db.ygoprodeck.com/</a></li>
+                <li><strong>API Documentation:</strong> <a href="https://db.ygoprodeck.com/api-guide/">https://db.ygoprodeck.com/api-guide/</a></li>
+                <li><strong>Endpoint:</strong> <a href="https://db.ygoprodeck.com/api/v7/cardinfo.php?">https://db.ygoprodeck.com/api/v7/cardinfo.php?</a></li>
+                <li><strong>Random Endpoint:</strong> <a href="https://db.ygoprodeck.com/api/v7/randomcard.php">https://db.ygoprodeck.com/api/v7/randomcard.php</a></li>
             </ul>
             <h2 class="subtitle mt-2 mb-0">Noteworthy</h2>
             <ul>
-                <li>Favorites check whether they have been favorited both in the favorites tab and the search tab.</li>
-                <li>Favorites are saved across searches; if you favorited a card before and go back to check, it'll still be favorited.</li>
-                <li>If there are more than 10 items stored in the favorites/community page, they are split into muliple pages</li>
+                <li><strong>Mobile Friendly:</strong> App functions on mobile and tablet, though most testing was done on desktop.</li>
+                <li><strong>Toggle Favorites:</strong> You can both favorite and unfavorite cards in the app without having to switch pages.</li>
+                <li><strong>Multiple Pages:</strong> If search results are greater than your max results, they are split into multiple pages.</li>
+                <li><strong>Multiple Favorites/Community Pages:</strong> If there are more than 10 items stored in the favorites/community page, they are split into multiple pages.</li>
+                <li><strong>Back to Top:</strong> Implemented a back to top button to quickly get back to the top of the screen.</li>
             </ul>
             <h2 class="subtitle mt-2 mb-0">Grading</h2>
+            <ul>
+                <li><strong>Local Storage:</strong> Saves last term searched by user, as well as max results. Additionally, remembers where the user last left off while searching.</li>
+                <li><strong>Web Components:</strong> Has 6 web components - header, footer, navbar, and 3 different types of cards.</li>
+                <li><strong>Fetch:</strong> Uses Ajax via fetch() in the app.</li>
+                <li><strong>Firebase:</strong> Uses Firebase to keep track of total likes in the community page.</li>
+                <li><strong>Labels:</strong> Easy to use with instructions, buttons and inputs are all labelled.</li>
+                <li><strong>Activity Indicators:</strong> Search button has a spinner when searching, and favorite buttone changes to reflect state.</li>
+                <li><strong>Fails Gracefully:</strong> Displays "no results found" when there aren't any valid results.</li>
+                <li><strong>Has Impact:</strong> Serves as a way to search for Yu-Gi-Oh! cards on browser, something that is surprisingly difficult.</li>
+            </ul>
             <h2 class="subtitle mt-2 mb-0">To Do</h2>
+            <ul>
+                <li><strong>Updated cards:</strong> Cards would just be images, and clicking on them would have "pop-ups" to display more information.</li>
+                <li><strong>Sorting:</strong> The ability to sort the cards in the app and favorites, as well as sorting the community tab by likes.</li>
+                <li><strong>Deck Building:</strong> Users can create decks with the card search, though I might have run into image rate limits.</li>
+                <li><strong>General Polish:</strong> Some of the code was a little sloppy and inconsistent across js files.</li>
+            </ul>
         </div>
     </section>
 
@@ -84,7 +101,7 @@
         </div>
     </section>
 
-    <button id="top-button" class="button is-link is-rounded">Back to Top</button>
+    <button id="top-button" class="button is-link is-rounded">^</button>
 
     <app-footer>
         <span>
