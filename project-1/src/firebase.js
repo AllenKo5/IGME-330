@@ -1,7 +1,6 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
-// TODO: Add SDKs for Firebase products that you want to use
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
 // https://firebase.google.com/docs/web/setup#available-libraries
+import { getDatabase, ref, set, push, onValue, increment, remove } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -15,4 +14,24 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+const likedCardsPath = "liked-cards/";
+
+const pushCardToCloud = (card, value) => {
+    const db = getDatabase();
+    const favRef = ref(db, `${likedCardsPath}${hashCode2(card)}`);
+    set(favRef, {
+        card,
+        likes: increment(value)
+    });
+};
+
+// Hashes card name
+const hashCode2 = (str) => {
+    return str.split("").reduce((prevHash, currVal) => (((prevHash << 5) - prevHash) + currVal.charCodeAt(0)) | 0, 0);
+};
+
 const app = initializeApp(firebaseConfig);
+console.log(app);
+const db = getDatabase();
+
+export { db, likedCardsPath, ref, set, push, pushCardToCloud, onValue };

@@ -8,7 +8,7 @@ body {
     right: 1rem;
 }
 
-#content, #favorites {
+#content, #favorites, #community-favorites {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;

@@ -35,11 +35,11 @@ img{
 }
 </style>
 <div>
+    <p id="likes"></p>
     <h1 class="title mt-1 mb-0"></h1>
     <img alt="card">
     <h2></h2>
     <p id="text"></p>
-    <p id="likes"></p>
 </div>
 `;
 
@@ -71,12 +71,14 @@ class CommunityCard extends HTMLElement {
         const def = this.getAttribute("data-def") ? `DEF ${this.getAttribute("data-def")}<br>` : "";
         const desc = this.getAttribute("data-desc") ? this.getAttribute("data-desc") : "";
         const imgUrl = this.getAttribute("data-image") ? this.getAttribute("data-image") : "";
+        const likes = this.getAttribute("data-likes") ? this.getAttribute("data-likes") : "";
 
         this.h1.innerHTML = `${name}`;
         this.img.src = imgUrl;
         this.img.alt = name;
         this.h2.innerHTML = `${level} ${attribute} ${race} ${type}`;
         this.p1.innerHTML = `${atk} ${def} ${desc}`;
+        this.p2.innerHTML = `<strong>Likes: ${likes}</strong>`;
     }
 }
 

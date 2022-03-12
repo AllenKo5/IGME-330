@@ -45,7 +45,7 @@ export const removeFavorite = (str) => {
     }
 
     writeLocalStorage(allValues);
-}
+};
 
 export const getFavorites = () => readLocalStorage().favorites;
 
@@ -59,7 +59,7 @@ export const setName = (str) => {
     const allValues = readLocalStorage();
     allValues.name = str;
     writeLocalStorage(allValues);
-}
+};
 
 export const getName = () => readLocalStorage().name;
 
@@ -67,7 +67,7 @@ export const setResults = (num) => {
     const allValues = readLocalStorage();
     allValues.results = num;
     writeLocalStorage(allValues);
-}
+};
 
 export const getResults = () => readLocalStorage().results;
 
@@ -75,7 +75,7 @@ export const setContent = (str) => {
     const allValues = readLocalStorage();
     allValues.content = str;
     writeLocalStorage(allValues);
-}
+};
 
 export const getContent = () => readLocalStorage().content;
 
@@ -83,7 +83,7 @@ export const setPage = (num) => {
     const allValues = readLocalStorage();
     allValues.page = num;
     writeLocalStorage(allValues);
-}
+};
 
 export const getPage = () => readLocalStorage().page;
 
@@ -91,7 +91,7 @@ export const setPrev = (bool) => {
     const allValues = readLocalStorage();
     allValues.prev = bool;
     writeLocalStorage(allValues);
-}
+};
 
 export const getPrev = () => readLocalStorage().prev;
 
@@ -99,6 +99,6 @@ export const setNext = (bool) => {
     const allValues = readLocalStorage();
     allValues.next = bool;
     writeLocalStorage(allValues);
-}
+};
 
 export const getNext = () => readLocalStorage().next;

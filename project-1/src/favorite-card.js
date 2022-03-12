@@ -1,4 +1,5 @@
 import * as storage from "./localStorage.js";
+import * as firebase from "./firebase.js";
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -63,9 +64,10 @@ class FavoriteCard extends HTMLElement {
             const name = this.getAttribute("data-name");
             if (storage.getFavorites().includes(name)) {
                 storage.removeFavorite(name);
+                firebase.pushCardToCloud(name, -1);
                 this.remove();
             }
-        }
+        };
         this.render();
     }
 

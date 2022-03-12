@@ -59,7 +59,7 @@ class AppNavbar extends HTMLElement {
         
         this.burgerIcon.onclick = () => {
             this.navbarMenu.classList.toggle("is-active");
-        }
+        };
     }
 }
 

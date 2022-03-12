@@ -68,12 +68,9 @@ const showFavorites = () => {
     }
 
     for (let i = 0; i < cards.length; i += 1) {
-        if (i === cards.length - 1) {
-            url += `${cards[i]}`;
-        } else {
-            url += `${cards[i]}|`;
-        }
+        url += `${cards[i]}|`;
     }
+    url = url.slice(0, -1);
 
     console.log(url);
     loadFile(url, addCards, () => { return; });
@@ -89,11 +86,11 @@ const init = () => {
     prevButton.onclick = () => {
         currentPage -= 1;
         showFavorites();
-    }
+    };
     nextButton.onclick = () => {
         currentPage += 1;
         showFavorites();
-    }
+    };
 }
 
 init();

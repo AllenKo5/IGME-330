@@ -181,7 +181,7 @@ const addCards = json => {
         });
     }
     console.log(json);
-
+    
     // Call showcard for each card within the filtered results
     for (let i = currentPage * parseInt(maxResults.value); i < json.data.length && i < (currentPage * parseInt(maxResults.value)) + parseInt(maxResults.value); i += 1) {
         showCard(json.data[i]);
@@ -190,14 +190,14 @@ const addCards = json => {
     searchButton.className = "button is-primary";
     searchButton.disabled = false;
     storage.setContent(content.innerHTML);
-}
+};
 
 // Displays error message
 const errorMessage = () => {
     content.innerHTML = "No results found!";
     searchButton.className = "button is-primary";
     storage.setContent("");
-}
+};
 
 // Searches and displays cards
 const searchCards = () => {
@@ -259,7 +259,11 @@ const init = () => {
     nextButton.disabled = storage.getNext();
     content.innerHTML = storage.getContent();
 
-    searchButton.onclick = searchCards;
+    searchButton.onclick = () => {
+        currentPage = 0;
+        storage.setPage(currentPage);
+        searchCards();
+    };
     clearButton.onclick = () => {
         content.innerHTML = "";
         storage.setContent("");
@@ -268,12 +272,12 @@ const init = () => {
         currentPage -= 1;
         storage.setPage(currentPage);
         searchCards();
-    }
+    };
     nextButton.onclick = () => {
         currentPage += 1;
         storage.setPage(currentPage);
         searchCards();
-    }
-}
+    };
+};
 
 init();

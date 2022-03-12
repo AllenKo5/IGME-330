@@ -15,12 +15,12 @@ const displayCard = json => {
     randomImage.src = json.card_images[0].image_url;
     randomImage.alt = json.name;
     randomCard.appendChild(randomImage);
-}
+};
 
 // Displays error message
 const errorMessage = () => {
     randomCard.innerHTML = "Unable to get card from database!";
-}
+};
 
 // Initialize function
 const init = () => {
