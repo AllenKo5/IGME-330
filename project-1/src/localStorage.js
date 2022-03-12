@@ -2,7 +2,10 @@ const defaultData = {
     "favorites": [],
     "name": "Dark Magician",
     "results": 10,
-    "content": ""
+    "content": "",
+    "page": 0,
+    "prev": true,
+    "next": true
 },
 storeName = "ask9458-project1-settings";
 
@@ -75,3 +78,27 @@ export const setContent = (str) => {
 }
 
 export const getContent = () => readLocalStorage().content;
+
+export const setPage = (num) => {
+    const allValues = readLocalStorage();
+    allValues.page = num;
+    writeLocalStorage(allValues);
+}
+
+export const getPage = () => readLocalStorage().page;
+
+export const setPrev = (bool) => {
+    const allValues = readLocalStorage();
+    allValues.prev = bool;
+    writeLocalStorage(allValues);
+}
+
+export const getPrev = () => readLocalStorage().prev;
+
+export const setNext = (bool) => {
+    const allValues = readLocalStorage();
+    allValues.next = bool;
+    writeLocalStorage(allValues);
+}
+
+export const getNext = () => readLocalStorage().next;

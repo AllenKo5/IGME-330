@@ -53,13 +53,13 @@ const showFavorites = () => {
         nextButton.disabled = true;
         favorites.innerHTML = "There are currently no favorites!";
         return;
-    } else if (cards.length < 10) {
+    } else if (cards.length <= 10) {
         prevButton.disabled = true;
         nextButton.disabled = true;
     } else if (currentPage === 0) {
         prevButton.disabled = true;
         nextButton.disabled = false;
-    } else if (currentPage === Math.floor(cards.length / 10)) {
+    } else if (currentPage === Math.floor(cards.length / 10) || currentPage + 1 === cards.length / 10) {
         prevButton.disabled = false;
         nextButton.disabled = true;
     } else {

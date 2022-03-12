@@ -2,6 +2,7 @@ import "./main.js";
 import { loadFile } from "./utils.js";
 import * as storage from "./localStorage.js";
 
+let currentPage = 0;
 const cardName = document.querySelector("#card-name"),
     cardType = document.querySelector("#card-type"),
     subType = document.querySelector("#sub-type"),
@@ -13,7 +14,9 @@ const cardName = document.querySelector("#card-name"),
     maxResults = document.querySelector("#max-results"),
     searchButton = document.querySelector("#search-button"),
     clearButton = document.querySelector("#clear-button"),
-    content = document.querySelector("#content");
+    content = document.querySelector("#content"),
+    prevButton = document.querySelector("#previous-button"),
+    nextButton = document.querySelector("#next-button");
 
 // Sets up card types when specific variables are clicked
 const addTypes = () => {
@@ -151,6 +154,26 @@ const showCard = (cardInfo) => {
 
 // Function for adding cards
 const addCards = json => {
+    if (json.data.length === 0) {
+        prevButton.disabled = true;
+        nextButton.disabled = true;
+        return;
+    } else if (json.data.length <= maxResults.value) {
+        prevButton.disabled = true;
+        nextButton.disabled = true;
+    } else if (currentPage === 0) {
+        prevButton.disabled = true;
+        nextButton.disabled = false;
+    } else if (currentPage === Math.floor(json.data.length / maxResults.value) || currentPage + 1 === json.data.length / maxResults.value) {
+        prevButton.disabled = false;
+        nextButton.disabled = true;
+    } else {
+        prevButton.disabled = false;
+        nextButton.disabled = false;
+    }
+    storage.setPrev(prevButton.disabled);
+    storage.setNext(nextButton.disabled);
+
     // Sorts image urls by id
     for (let j of json.data) {
         j.card_images.sort((a, b) => {
@@ -160,11 +183,12 @@ const addCards = json => {
     console.log(json);
 
     // Call showcard for each card within the filtered results
-    for (let i = 0; i < json.data.length && i < maxResults.value; i += 1) {
+    for (let i = currentPage * parseInt(maxResults.value); i < json.data.length && i < (currentPage * parseInt(maxResults.value)) + parseInt(maxResults.value); i += 1) {
         showCard(json.data[i]);
     }
 
     searchButton.className = "button is-primary";
+    searchButton.disabled = false;
     storage.setContent(content.innerHTML);
 }
 
@@ -175,15 +199,15 @@ const errorMessage = () => {
     storage.setContent("");
 }
 
-// Displays cards when search button is clicked
-const searchButtonClicked = () => {
+// Searches and displays cards
+const searchCards = () => {
     searchButton.className = "button is-primary is-loading";
-
-    const YGOPRO_URL = "https://db.ygoprodeck.com/api/v7/cardinfo.php?";
-    let url = YGOPRO_URL;
 
     // Clear all current results
     content.innerHTML = "";
+
+    const YGOPRO_URL = "https://db.ygoprodeck.com/api/v7/cardinfo.php?";
+    let url = YGOPRO_URL;
 
     // Reading in parameters
     let term = "";
@@ -230,14 +254,26 @@ const init = () => {
     maxResults.value = storage.getResults();
     maxResults.onchange = () => storage.setResults(maxResults.value);
     cardType.onchange = addTypes;
-
+    currentPage = storage.getPage();
+    prevButton.disabled = storage.getPrev();
+    nextButton.disabled = storage.getNext();
     content.innerHTML = storage.getContent();
-    
-    searchButton.onclick = searchButtonClicked;
+
+    searchButton.onclick = searchCards;
     clearButton.onclick = () => {
         content.innerHTML = "";
         storage.setContent("");
     };
+    prevButton.onclick = () => {
+        currentPage -= 1;
+        storage.setPage(currentPage);
+        searchCards();
+    }
+    nextButton.onclick = () => {
+        currentPage += 1;
+        storage.setPage(currentPage);
+        searchCards();
+    }
 }
 
 init();
