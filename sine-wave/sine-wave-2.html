@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Animated Sine Wave</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+    <script>
+        "use strict";
+        const canvasWidth = 400, canvasHeight = 300;
+        let ctx;
+        let x = 0, y = 0;
+        let angle = 0;
+        let amplitude;
+        const fps = 12;
+
+        window.onload = init;
+
+        function init() {
+            ctx = canvas.getContext("2d");
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+            drawWaves(100);
+        }
+
+        function drawWaves(amp) {
+            setTimeout(drawWaves, 1000 / fps);
+            ctx.save();
+            ctx.fillStyle = "black";
+            ctx.globalAlpha = 1 / fps;
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+            ctx.restore();
+
+            if (amp) {
+                amplitude = amp;
+            }
+            x += 10;
+            angle += 0.3;
+
+            // Sine wave
+            y = canvasHeight / 2 + Math.sin(angle) * amplitude;
+            drawCircle(ctx, x, y, 2, "white");
+
+            // Cosine wave
+            y = canvasHeight / 2 + Math.cos(angle) * amplitude;
+            drawCircle(ctx, x, y, 2, "red");
+
+            // Sqrt wave
+            y = canvasHeight / 2 - Math.sqrt(x % 50) * amplitude / 10;
+            drawCircle(ctx, x, y, 4, "yellow");
+
+            // Reverse sqrt wave
+            y = canvasHeight / 2 + Math.sqrt(x % 50) * amplitude / 10;
+            drawCircle(ctx, x, y, 4, "blue");
+
+            // Wrap around
+            if (x > canvasWidth) {
+                x = 0;
+            }
+        }
+
+        // helpers
+        function dtr(degrees) {
+            return degrees * (Math.PI / 180);
+        }
+
+        function drawCircle(ctx, x, y, radius, color) {
+            ctx.save();
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+    </script>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+
+</body>
+
+</html>
