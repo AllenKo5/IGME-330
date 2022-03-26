@@ -1,6 +1,7 @@
 <html>
+
 <head>
-	<!--
+    <!--
 		A canvas example from:
 		https://developer.apple.com/library/safari/documentation/AudioVideo/Conceptual/HTML-canvas-guide/GradientsandPatterns/GradientsandPatterns.html
 		
@@ -9,13 +10,13 @@
     <title>Simple gradient example</title>
     <script type="text/javascript">
         var can, ctx;
- 
+
         function init() {
             can = document.getElementById("can");
             ctx = can.getContext("2d");
             drawGradient();
         }
- 
+
         function drawGradient() {
             var grad = ctx.createLinearGradient(10, 0, 80, 0);
             grad.addColorStop(0, 'black');
@@ -25,8 +26,10 @@
         }
     </script>
 </head>
+
 <body onload="init()" style="background-color:#e0e0e0">
     <canvas id="can" height="200" width="400">
     </canvas>
 </body>
+
 </html>

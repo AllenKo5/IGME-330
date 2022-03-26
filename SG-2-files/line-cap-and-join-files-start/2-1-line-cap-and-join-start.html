@@ -27,6 +27,10 @@
 		label+label {
 			margin-left: 20px;
 		}
+
+		#emoji {
+			display: none;
+		}
 	</style>
 
 	<script>
@@ -70,6 +74,35 @@
 			};
 
 			document.querySelector('#stroke-chooser').onchange = function (e) {
+				if (e.target.value == "gradient") {
+					const grad = ctx.createLinearGradient(0, 0, 300, 0);
+					grad.addColorStop(0, "red");
+					grad.addColorStop(1 / 4, "yellow");
+					grad.addColorStop(2 / 4, "green")
+					grad.addColorStop(3 / 4, "blue");
+					grad.addColorStop(1, "purple");
+					gStrokeStyle = grad;
+					drawLines();
+					return;
+				}
+				if (e.target.value == "radial-gradient") {
+					const grad = ctx.createRadialGradient(150, 150, 0, 150, 150, 150);
+					grad.addColorStop(0, "purple");
+					grad.addColorStop(1 / 4, "blue");
+					grad.addColorStop(2 / 4, "green");
+					grad.addColorStop(3 / 4, "yellow");
+					grad.addColorStop(1, "red");
+					gStrokeStyle = grad;
+					drawLines();
+					return;
+				}
+				if (e.target.value == "emoji-pattern") {
+					var emoji = document.getElementById("emoji");
+					const pat = ctx.createPattern(emoji, "repeat");
+					gStrokeStyle = pat;
+					drawLines();
+					return;
+				}
 				gStrokeStyle = e.target.value;
 				drawLines();
 			};
@@ -142,12 +175,17 @@
 
 		<label>strokeStyle:
 			<select id="stroke-chooser">
-				<option value="black" selected>Black</option>
-				<option value="red">Red</option>
-				<option value="blue">Blue</option>
-				<option value="green">Green</option>
+				<option value="black" selected>black</option>
+				<option value="red">red</option>
+				<option value="blue">blue</option>
+				<option value="green">green</option>
+				<option value="gradient">gradient</option>
+				<option value="radial-gradient">radial gradient</option>
+				<option value="emoji-pattern">emoji pattern</option>
 			</select>
 		</label>
+
+		<img id="emoji" src="grimacing-face-emoji-small.png" />
 
 	</section>
 </body>
