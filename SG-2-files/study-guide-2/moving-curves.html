@@ -18,18 +18,21 @@
     </style>
     <script type="text/javascript">
         var canvas, ctx;
+        let ctrlX = 0, ctrlY = 0, speed = 10, vector;
 
         function init() {
             canvas = document.querySelector("canvas");
             ctx = canvas.getContext("2d");
+            vector = getRandomUnitVector();
             drawCurves();
+            loop();
         }
 
         function drawCurves() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
             ctx.lineWidth = "3";
             ctx.strokeStyle = "black";
-            var ctrlX = 5;
-            var ctrlY = 150;
             var ctrlXa = 50;
             var ctrlYa = 300;
             ctx.beginPath();
@@ -44,11 +47,51 @@
             ctx.stroke();
         }
 
+        function loop() {
+            requestAnimationFrame(loop);
+
+            ctrlX += speed * vector.x;
+            ctrlY += speed * vector.y;
+
+            // check boundaries
+            if (ctrlX >= canvas.width || ctrlX <= 0) {
+                vector.x *= -1;	// flip direction
+                ctrlX += speed * vector.x; // move once
+            }
+
+            if (ctrlY >= canvas.height || ctrlY <= 0) {
+                vector.y *= -1;	// flip direction
+                ctrlY += speed * vector.y;
+            }
+
+            drawCurves();
+        }
+
+        function getRandomUnitVector() {
+            var x = getRandom(-1, 1);
+            var y = getRandom(-1, 1);
+            var length = Math.sqrt(x * x + y * y);
+            if (length == 0) { // very unlikely
+                x = 1; // point right
+                y = 0;
+                length = 1;
+            } else {
+                x /= length;
+                y /= length;
+            }
+
+            return { x: x, y: y };
+        }
+
+        function getRandom(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
     </script>
 </head>
 
 <body onload="init()" style="background-color:#e0e0e0">
-    <canvas height="200" width="400">
+    <canvas height="400" width="600">
     </canvas>
 </body>
 
