@@ -22,7 +22,7 @@ function setupWebaudio(filePath) {
     audioCtx = new AudioContext();
 
     // 2 - this creates an <audio> element
-    element = new Audio;
+    element = new Audio(); // document.querySelector("audio");
 
     // 3 - have it point at a sound file
     loadSoundFile(filePath);
@@ -31,8 +31,7 @@ function setupWebaudio(filePath) {
     sourceNode = audioCtx.createMediaElementSource(element);
 
     // 5 - create an analyser node
-    // note the UK spelling of "Analyser"
-    analyserNode = audioCtx.createAnalyser();
+    analyserNode = audioCtx.createAnalyser(); // note the UK spelling of "Analyser"
 
     /*
     // 6
