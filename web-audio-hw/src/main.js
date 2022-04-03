@@ -8,6 +8,7 @@
 // If you want to re-write these as ES6 arrow functions, to be consistent with the other files, go ahead!
 
 import * as utils from './utils.js';
+import * as audio from './audio.js';
 
 // 1 - here we are faking an enumeration
 const DEFAULTS = Object.freeze({
@@ -17,6 +18,7 @@ const DEFAULTS = Object.freeze({
 function init() {
     console.log("init called");
     console.log(`Testing utils.getRandomColor() import: ${utils.getRandomColor()}`);
+    audio.setupWebaudio(DEFAULTS.sound1);
     let canvasElement = document.querySelector("canvas"); // hookup <canvas> element
     setupUI(canvasElement);
 }
