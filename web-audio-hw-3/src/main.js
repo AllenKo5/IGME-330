@@ -15,7 +15,9 @@ const drawParams = {
     showGradient: true,
     showBars: true,
     showCircles: true,
-    showNoise: true
+    showNoise: false,
+    showInvert: false,
+    showEmboss: false
 };
 
 // 1 - here we are faking an enumeration
@@ -98,6 +100,15 @@ function setupUI(canvasElement) {
     }
     document.querySelector("#circlesCB").onchange = e => {
         drawParams.showCircles = e.target.checked;
+    }
+    document.querySelector("#noiseCB").onchange = e => {
+        drawParams.showNoise = e.target.checked;
+    }
+    document.querySelector("#invertCB").onchange = e => {
+        drawParams.showInvert = e.target.checked;
+    }
+    document.querySelector("#embossCB").onchange = e => {
+        drawParams.showEmboss = e.target.checked;
     }
 
     visualizer.setupCanvas(canvasElement,audio.analyserNode);
