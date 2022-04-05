@@ -50,8 +50,16 @@ function setupWebaudio(filePath) {
     gainNode = audioCtx.createGain();
     gainNode.gain.value = DEFAULTS.gain;
 
+    // create treble node
+    // https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
+    let biquadFilter = audioCtx.createBiquadFilter();
+    biquadFilter.type = "highshelf";
+    biquadFilter.frequency.setValueAtTime(1000, audioCtx.currentTime);
+    biquadFilter.gain.setValueAtTime(10, audioCtx.currentTime);
+
     // 8 - connect the nodes - we now have an audio graph
-    sourceNode.connect(analyserNode);
+    sourceNode.connect(biquadFilter);
+    biquadFilter.connect(analyserNode);
     analyserNode.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 }
