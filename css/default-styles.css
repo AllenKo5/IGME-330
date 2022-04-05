@@ -1,0 +1,42 @@
+#my-photo {
+    width: 100px;
+}
+
+#navbar {
+    position: fixed;
+}
+
+#wrapper {
+    padding: 1em;
+    background-color: skyblue;
+}
+
+#top-button {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.project-text {
+    margin: auto 0;
+}
+
+a:link {
+    color: lightcoral;
+}
+
+a:focus,
+a:hover,
+a:active {
+    color: crimson;
+}
+
+section {
+    padding: 1rem;
+}
+
+@media only screen and (min-width: 1024px) {
+    .project-image {
+        width: 40%;
+    }
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allen Ko Portfolio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="css/default-styles.css">
+</head>
+
+<body>
+    <nav id="navbar" class="navbar is-primary">
+        <div class="navbar-brand">
+            <a href="index.html#about" class="navbar-item">About</a>
+            <a href="index.html#projects" class="navbar-item">Projects</a>
+            <a href="index.html#contact" class="navbar-item">Contact Me</a>
+            <a href="media/Allen Ko Resume.pdf" class="navbar-item">Resume</a>
+        </div>
+    </nav>
+
+    <div id="wrapper" class="has-text-centered">
+        <header>
+            <img id="my-photo" src="media/my-photo.png" alt="Allen Ko">
+            <h1 id="top" class="is-size-1">Allen Ko</h1>
+        </header>
+
+        <h2 id="about" class="is-size-3">About Me</h2>
+        <p id="abouttext">
+            I've always been interested in video games, which has led to an interest in game balance and level
+            design. As a Game Design & Development major at Rochester Institute of Technology, I have been slowly
+            building experience in programming languages and game engines so I can better understand the kind of work
+            that goes into making video games. I have knowledge in C#, C++, and Java, as well as HTML/CSS/JavaScript and
+            minimal knowledge of
+            Python. Additionally, in terms of game engines, I have experience in Unity and Unreal.
+        </p>
+
+        <section>
+            <h2 id="projects" class="is-size-3">My Works</h2>
+
+            <div id="commander-finder">
+                <h3 class="is-size-5">Commander Finder for Magic: The Gathering's Commander Format</h3>
+                <a href="https://people.rit.edu/ask9458/235/project2/"><img src="media/edh-commander-finder.png"
+                        alt="EDH Commander Finder" class="project-image"></a>
+                <div class="project-text">
+                    <p>
+                        The EDH Commander Finder is a Web application that uses the Scryfall API, an API for Magic:
+                        The Gathering. The application allows you to set parameters such as name, colors, and mana cost,
+                        and returns the possible commanders that fulfill those requirements. Each image is a clickable
+                        link that leads to that card's Scryfall entry. The program uses Web storage to remember the last
+                        name you inputted. I designed the entire page and wrote the JavaScript for a class assignment,
+                        but it was also something that I wanted to be able to use myself, since I play the game. This
+                        was
+                        the first time I had done something with an API, so figuring out what search terms I wanted was
+                        one of the biggest challenges for this project.
+                    </p>
+                    <!--Scryfall API at https://scryfall.com/docs/api-->
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div id="robo-runner">
+                <h3 class="is-size-5">Robo Runner: A PixiJS Game</h3>
+                <a href="https://people.rit.edu/ask9458/235/project3/"><img src="media/robo-runner.png"
+                        alt="Robo Runner" class="project-image"></a>
+                <div class="project-text">
+                    <p>
+                        Robo Runner is a Web game that uses PixiJS, a WebGL renderer. The object of the game is to
+                        get the highest score you can by avoiding the obstacles that come your way. In between attempts,
+                        you can upgrade various stats that will give you more flexibility in achieving a greater score.
+                        The project uses PixiJS to render text and sprites, and uses howler.js for in-game sounds. I was
+                        responsible for both game logic as well as the sprites as part of a class project. I was
+                        able to utilize the various skills from programming in other languages to make the game function
+                        on
+                        the Web.
+                    </p>
+                    <!--
+                            PixiJS: https://www.pixijs.com/
+                            Howler.js: https://howlerjs.com/
+                            Sounds found at opengameart: https://opengameart.org/
+                        -->
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div id="card-finder">
+                <h3 class="is-size-5">Yu-Gi-Oh! Card Finder</h3>
+                <a href="https://people.rit.edu/ask9458/330/project-1/app.html"><img src="media/ygo-card-finder.png"
+                        alt="Yu-Gi-Oh! Card Finder" class="project-image"></a>
+                <div class="project-text">
+                    <p>
+                        The Yu-Gi-Oh! Card Finder utilizes the YGOPRODeck API to access card details from a
+                        database. The application allows you to set parameters such as the card name and stats, then
+                        searches
+                        the API for the cards and displays their cards. The program uses local storage to save the
+                        previous parameters and state. Additionally, the application uses Firebase for a community tab
+                        where
+                        you can see what cards other people have favorited. Now that I have more experience, this is a
+                        work
+                        that I'm a lot more satisfied with.
+                    </p>
+                    <!--YGOPRODeck API at https://db.ygoprodeck.com/api-guide/-->
+                </div>
+            </div>
+
+            <h2 class="is-size-3" id="contact">Contact Me</h2>
+            <div>Email: <a href="mailto:ask9458@rit.edu">ask9458@rit.edu</a></div>
+            <div>Phone Number: (617)-372-5307</div>
+        </section>
+    </div>
+
+    <a href="index.html#top" class="is-rounded is-info" id="top-button">^</a>
+
+    <footer class="footer">
+        &copy;Allen Ko 2020-2022<br>
+        Powered by Bulma
+    </footer>
+</body>
+
+</html>
