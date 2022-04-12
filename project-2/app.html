@@ -5,15 +5,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Comet Audio Visualizer</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <script type="module" src="src/main.js"></script>
+    <script type="module" src="src/app.js"></script>
 </head>
 
 <body>
-    <h1 class="title has-text-centered">App</h1>
+    <app-header>
+        <span>
+            Comet Audio Visualizer
+        </span>
+    </app-header>
+
+    <app-navbar data-currentpage="app"></app-navbar>
+
+    <canvas width="800" height="400"></canvas>
+
+    <div id="controls">
+        <section>
+            <button id="playButton" data-playing="no"></button>
+            <button id="fsButton">Full Screen</button>
+        </section>
+
+        <label>Track:
+            <select id="trackSelect">
+                <option value="media/New Adventure Theme.mp3" selected>New Adventure Theme</option>
+            </select>
+        </label>
+    </div>
+
+
+    <section>
+        Volume: <input type="range" id="volumeSlider" min="0" max="2" value="1" step="0.01">
+        <span id="volumeLabel">???</span>
+    </section>
+
+    <app-footer>
+        <span>
+            &copy;2022 Comet Audio Visualizer by <strong>Allen Ko</strong>
+        </span>
+    </app-footer>
 </body>
 
 </html>
