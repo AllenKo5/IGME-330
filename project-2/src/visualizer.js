@@ -17,7 +17,7 @@ const setupCanvas = (canvasElement, analyserNodeRef) => {
     canvasWidth = canvasElement.width;
     canvasHeight = canvasElement.height;
     // create a gradient that runs top to bottom
-    gradient = utils.getLinearGradient(ctx, 0, 0, 0, canvasHeight, [{ percent: 0, color: "blue" }, { percent: 0.33, color: "lightblue" }, { percent: 0.67, color: "lightgreen" }, { percent: 1, color: "green" }]);
+    gradient = utils.getLinearGradient(ctx, 0, 0, 0, canvasHeight, [{ percent: 0, color: "midnightblue" }, { percent: 0.33, color: "darkblue" }, { percent: 0.66, color: "blue"}, { percent: 1, color: "lightblue" }]);
     // keep a reference to the analyser node
     analyserNode = analyserNodeRef;
     // this is the array where the analyser data will be stored
@@ -76,25 +76,25 @@ const draw = (params = {}) => {
             let percent = audioData[i] / 255;
             let circleRadius = percent * maxRadius;
 
-            // red-ish circles
+            // dark blue circles
             ctx.beginPath();
-            ctx.fillStyle = utils.makeColor(255, 111, 111, 0.34 - percent / 3.0);
+            ctx.fillStyle = utils.makeColor(0, 0, 128, 0.34 - percent / 3.0);
             ctx.arc(canvasWidth / 2, canvasHeight / 2, circleRadius, 0, 2 * Math.PI, false);
             ctx.fill();
             ctx.closePath();
 
-            // blue-ish circles, bigger, more transparent
+            // light blue circles, bigger, more transparent
             ctx.beginPath();
-            ctx.fillStyle = utils.makeColor(0, 0, 255, 0.10 - percent / 10.0);
+            ctx.fillStyle = utils.makeColor(0, 128, 255, 0.34 - percent / 3.0);
             ctx.arc(canvasWidth / 2, canvasHeight / 2, circleRadius * 1.5, 0, 2 * Math.PI, false);
             ctx.fill();
             ctx.closePath();
 
-            // yellow-ish circles, smaller
+            // blue circles, smaller
             ctx.save();
             ctx.beginPath();
-            ctx.fillStyle = utils.makeColor(200, 200, 0, 0.5 - percent / 5.0);
-            ctx.arc(canvasWidth / 2, canvasHeight / 2, circleRadius * 0.5, 0, 2 * Math.PI, false);
+            ctx.fillStyle = utils.makeColor(0, 0, 255, 0.34 - percent / 3.0);
+            ctx.arc(canvasWidth / 2, canvasHeight / 2, circleRadius * 1.25, 0, 2 * Math.PI, false);
             ctx.fill();
             ctx.restore();
             ctx.closePath();
@@ -135,7 +135,7 @@ const draw = (params = {}) => {
         } // end for
 
         if (params.showEmboss) {
-            for (let i = 0; i < length; i++) { 
+            for (let i = 0; i < length; i++) {
                 if (i % 4 == 3) continue;
                 data[i] = 127 + 2 * data[i] - data[i + 4] - data[i + width * 4];
             }

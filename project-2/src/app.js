@@ -100,6 +100,7 @@ function loop() {
     /* NOTE: This is temporary testing code that we will delete in Part II */
     requestAnimationFrame(loop);
     visualizer.draw(drawParams);
+    
     // 1) create a byte array (values of 0-255) to hold the audio data
     // normally, we do this once when the program starts up, NOT every frame
     // let audioData = new Uint8Array(audio.analyserNode.fftSize / 2);
