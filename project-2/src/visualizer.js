@@ -9,19 +9,44 @@
 
 import * as utils from './utils.js';
 
-let ctx, canvasWidth, canvasHeight, gradient, analyserNode, audioData;
+let ctx, canvasWidth, canvasHeight, analyserNode, audioData, comets;
 
 const setupCanvas = (canvasElement, analyserNodeRef) => {
     // create drawing context
     ctx = canvasElement.getContext("2d");
     canvasWidth = canvasElement.width;
     canvasHeight = canvasElement.height;
-    // create a gradient that runs top to bottom
-    gradient = utils.getLinearGradient(ctx, 0, 0, 0, canvasHeight, [{ percent: 0, color: "midnightblue" }, { percent: 0.33, color: "darkblue" }, { percent: 0.66, color: "blue"}, { percent: 1, color: "lightblue" }]);
     // keep a reference to the analyser node
     analyserNode = analyserNodeRef;
     // this is the array where the analyser data will be stored
     audioData = new Uint8Array(analyserNode.fftSize / 2);
+
+    comets = [];
+}
+
+const generateComet = () => {
+    const c = {};
+    c.radius = Math.random() * 10;
+    c.x = Math.random() * canvasWidth + 100;
+    c.y = Math.random() * -100;
+
+    c.draw = (ctx) => {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2, false);
+        ctx.closePath();
+        ctx.fillStyle = "skyblue";
+        ctx.fill();
+        ctx.restore();
+    }
+
+    c.move = () => {
+        const speed = Math.random() * 5;
+        c.x -= speed;
+        c.y += speed;
+    }
+
+    comets.push(c);
 }
 
 const draw = (params = {}) => {
@@ -29,75 +54,95 @@ const draw = (params = {}) => {
     // notice these arrays are passed "by reference" 
     analyserNode.getByteFrequencyData(audioData);
     // OR
-    //analyserNode.getByteTimeDomainData(audioData); // waveform data
+    // analyserNode.getByteTimeDomainData(audioData); // waveform data
+
+    let radius = canvasHeight / 4;
 
     // 2 - draw background
     ctx.save();
-    ctx.fillStyle = "black";
     ctx.globalAlpha = 0.1;
+    ctx.fillStyle = "midnightblue";
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    ctx.fillStyle = "darkslateblue";
+    ctx.fillRect(0, 2 * canvasHeight / 3, canvasWidth, canvasHeight / 3);
+    ctx.fillStyle = "cornflowerblue";
+    ctx.fillRect(0, 5 * canvasHeight / 6, canvasWidth, canvasHeight / 6);
     ctx.restore();
 
-    // 3 - draw gradient
-    if (params.showGradient) {
+    // draw comets
+    if (params.showComets) {
+        console.log(audioData[0]);
         ctx.save();
-        ctx.fillStyle = gradient;
-        ctx.globalAlpha = 0.3;
-        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+        // loop through all comets
+        for (let i = 0; i < comets.length; i++) {
+            comets[i].move();
+            comets[i].draw(ctx);
+
+            // remove any comets that have left the screen
+            if (comets[i].x < -100 || comets[i].y > canvasHeight + 100) {
+                comets.splice(i, i + 1);
+                i--;
+            }
+        }
         ctx.restore();
     }
 
-    // 4 - draw bars
+    // draw circles
+    if (params.showCircles) {
+        ctx.save();
+        ctx.globalAlpha = 0.5;
+
+        ctx.beginPath();
+        ctx.fillStyle = "mediumblue";
+        ctx.arc(canvasWidth / 2, canvasHeight / 3, radius * 0.75, 0, 3 * Math.PI, false);
+        ctx.closePath();
+        ctx.fill();
+
+        for (let i = 0; i < audioData.length; i++) {
+            const percent = audioData[i] / 255;
+            const circleRadius = percent * radius;
+
+            // dark blue circles
+            ctx.beginPath();
+            ctx.fillStyle = utils.makeColor(0, 0, 128, 0.34 - percent / 3.0);
+            ctx.arc(canvasWidth / 2, canvasHeight / 3, circleRadius * 0.67, 0, 2 * Math.PI, false);
+            ctx.fill();
+            ctx.closePath();
+
+            // light blue circles, bigger, more transparent
+            ctx.beginPath();
+            ctx.fillStyle = utils.makeColor(0, 128, 255, 0.10 - percent / 10.0);
+            ctx.arc(canvasWidth / 2, canvasHeight / 3, circleRadius, 0, 2 * Math.PI, false);
+            ctx.fill();
+            ctx.closePath();
+
+            // blue circles, smaller
+            ctx.beginPath();
+            ctx.fillStyle = utils.makeColor(0, 0, 255, 0.5 - percent / 5.0);
+            ctx.arc(canvasWidth / 2, canvasHeight / 3, circleRadius * 0.33, 0, 2 * Math.PI, false);
+            ctx.fill();
+            ctx.closePath();
+        }
+        ctx.restore();
+    }
+
+    // draw bars
     if (params.showBars) {
-        let barSpacing = 4;
-        let margin = 5;
-        let screenWidthForBars = canvasWidth - (audioData.length * barSpacing) - margin * 2;
-        let barWidth = screenWidthForBars / audioData.length;
-        let barHeight = 200;
-        let topSpacing = 100;
+        const perimeter = 2 * Math.PI * radius;
+        const barWidth = perimeter / audioData.length;
 
         ctx.save();
         ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
         ctx.strokeStyle = "rgba(0, 0, 0, 0.5)";
         // loop through the data and draw
         for (let i = 0; i < audioData.length; i++) {
-            ctx.fillRect(margin + i * (barWidth + barSpacing), topSpacing + 256 - audioData[i], barWidth, barHeight);
-            ctx.strokeRect(margin + i * (barWidth + barSpacing), topSpacing + 256 - audioData[i], barWidth, barHeight);
-        }
-        ctx.restore();
-    }
-
-    // 5 - draw circles
-    if (params.showCircles) {
-        let maxRadius = canvasHeight / 4;
-        ctx.save();
-        ctx.globalAlpha = 0.5;
-        for (let i = 0; i < audioData.length; i++) {
-            let percent = audioData[i] / 255;
-            let circleRadius = percent * maxRadius;
-
-            // dark blue circles
-            ctx.beginPath();
-            ctx.fillStyle = utils.makeColor(0, 0, 128, 0.34 - percent / 3.0);
-            ctx.arc(canvasWidth / 2, canvasHeight / 2, circleRadius, 0, 2 * Math.PI, false);
-            ctx.fill();
-            ctx.closePath();
-
-            // light blue circles, bigger, more transparent
-            ctx.beginPath();
-            ctx.fillStyle = utils.makeColor(0, 128, 255, 0.34 - percent / 3.0);
-            ctx.arc(canvasWidth / 2, canvasHeight / 2, circleRadius * 1.5, 0, 2 * Math.PI, false);
-            ctx.fill();
-            ctx.closePath();
-
-            // blue circles, smaller
+            const percent = audioData[i] / 255;
             ctx.save();
-            ctx.beginPath();
-            ctx.fillStyle = utils.makeColor(0, 0, 255, 0.34 - percent / 3.0);
-            ctx.arc(canvasWidth / 2, canvasHeight / 2, circleRadius * 1.25, 0, 2 * Math.PI, false);
-            ctx.fill();
+            ctx.translate(canvasWidth / 2, canvasHeight / 3);
+            ctx.rotate(i * Math.PI * 2 / audioData.length);
+            ctx.fillRect(0, -radius * 0.75, -barWidth, -percent * radius);
             ctx.restore();
-            ctx.closePath();
         }
         ctx.restore();
     }

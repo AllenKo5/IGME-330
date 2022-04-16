@@ -21,7 +21,7 @@
 
     <app-navbar data-currentpage="app"></app-navbar>
 
-    <canvas width="800" height="600"></canvas>
+    <canvas width="800" height="500"></canvas>
 
     <div id="controls">
         <section>
@@ -31,15 +31,18 @@
 
         <label>Track:
             <select id="track-select">
-                <option value="media/New Adventure Theme.mp3" selected>New Adventure Theme</option>
+                <option value="media/Stellar Stellar.mp3" selected>Stellar Stellar</option>
+                <option value="media/Scuffed Up Age.mp3">Scuffed Up Age</option>
             </select>
         </label>
     </div>
 
-
-    <section>
+    <section class="section">
         Volume: <input type="range" id="volume-slider" min="0" max="2" value="1" step="0.01">
-        <span id="volume-label">???</span>
+        <span id="volume-label">???</span><br>
+        <span><input type="checkbox" id="circles-checkbox" checked><label for="circlesCB">Show Circles</label></span>
+        <span><input type="checkbox" id="bars-checkbox" checked><label for="barsCB">Show Bars</label></span>
+        <span><input type="checkbox" id="comets-checkbox"><label for="barsCB">Show Comets</label></span>
     </section>
 
     <app-footer>
