@@ -12,7 +12,7 @@
     "comets": {
         "name": "showComets",
         "id": "#comets-checkbox",
-        "state": false
+        "state": true
     },
     "trails": {
         "name": "showTrails",

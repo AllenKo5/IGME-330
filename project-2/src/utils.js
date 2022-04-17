@@ -10,6 +10,14 @@ const getRandom = (min, max) => {
     return Math.random() * (max - min) + min;
 };
 
+const getLinearGradient = (ctx, startX, startY, endX, endY, colorStops) => {
+    let lg = ctx.createLinearGradient(startX, startY, endX, endY);
+    for (let stop of colorStops) {
+        lg.addColorStop(stop.percent, stop.color);
+    }
+    return lg;
+};
+
 const goFullscreen = (element) => {
     if (element.requestFullscreen) {
         element.requestFullscreen();
@@ -23,4 +31,4 @@ const goFullscreen = (element) => {
     // .. and do nothing if the method is not supported
 };
 
-export { makeColor, getRandom, goFullscreen };
+export { makeColor, getRandom, getLinearGradient, goFullscreen };

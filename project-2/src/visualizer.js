@@ -9,13 +9,14 @@
 
 import * as utils from './utils.js';
 
-let ctx, canvasWidth, canvasHeight, analyserNode, audioData, comets;
+let ctx, canvasWidth, canvasHeight, gradient, analyserNode, audioData, comets;
 
 const setupCanvas = (canvasElement, analyserNodeRef) => {
     // create drawing context
     ctx = canvasElement.getContext("2d");
     canvasWidth = canvasElement.width;
     canvasHeight = canvasElement.height;
+    gradient = utils.getLinearGradient(ctx, 0, 0, 0, canvasHeight, [{ percent: 0, color: "slateblue" }, { percent: 0.5, color: "lightblue" }, { percent: 1, color: "darkblue" }]);
     // keep a reference to the analyser node
     analyserNode = analyserNodeRef;
     // this is the array where the analyser data will be stored
@@ -32,6 +33,7 @@ const generateComet = () => {
     c.y = -100;
     c.speed = utils.getRandom(1, 5);
 
+    // draws comet at its x and y position
     c.draw = (ctx) => {
         ctx.save();
         ctx.beginPath();
@@ -42,11 +44,13 @@ const generateComet = () => {
         ctx.restore();
     }
 
+    // moves comet based off its speed
     c.move = () => {
         c.x -= c.speed;
         c.y += c.speed;
     }
 
+    // push to array
     comets.push(c);
 }
 
@@ -64,7 +68,7 @@ const draw = (params = {}) => {
     ctx.fillStyle = "midnightblue";
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     ctx.globalAlpha = 1.0;
-    ctx.fillStyle = "slateblue";
+    ctx.fillStyle = gradient;
     ctx.fillRect(0, 4 * canvasHeight / 5, canvasWidth, canvasHeight / 5);
     ctx.restore();
 
@@ -77,8 +81,8 @@ const draw = (params = {}) => {
         if (total > 6000) {
             generateComet();
         }
-        ctx.save();
 
+        ctx.save();
         // loop through all comets
         for (let i = 0; i < comets.length; i++) {
             comets[i].move();
@@ -93,6 +97,7 @@ const draw = (params = {}) => {
                     ctx.fillRect(comets[i].x, 0, comets[i].radius, comets[i].y, )
                     ctx.restore();
                 }
+
                 comets.splice(i, 1);
                 i--;
             }
@@ -151,51 +156,19 @@ const draw = (params = {}) => {
         ctx.restore();
     }
 
-    // 6 - bitmap manipulation
-    // TODO: right now. we are looping though every pixel of the canvas (320,000 of them!), 
-    // regardless of whether or not we are applying a pixel effect
-    // At some point, refactor this code so that we are looping though the image data only if
-    // it is necessary
-    if (params.showNoise || params.showInvert || params.showEmboss || params.showMonochrome) {
-        // A) grab all of the pixels on the canvas and put them in the `data` array
-        // `imageData.data` is a `Uint8ClampedArray()` typed array that has 1.28 million elements!
-        // the variable `data` below is a reference to that array 
+    // bitmap manipulation
+    if (params.showMonochrome) {
         let imageData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
         let data = imageData.data;
         let length = data.length;
-        let width = imageData.width; // not using here
-        // B) Iterate through each pixel, stepping 4 elements at a time (which is the RGBA for 1 pixel)
         for (let i = 0; i < length; i += 4) {
-            // C) randomly change every 20th pixel to red
-            if (params.showNoise && Math.random() < 0.05) {
-                // data[i] is the red channel
-                // data[i+1] is the green channel
-                // data[i+2] is the blue channel
-                // data[i+3] is the alpha channel
-                data[i] = data[i + 1] = data[i + 2] = 255; // zero out the red and green and blue channels
-            } // end if
-
-            if (params.showInvert) {
-                let red = data[i], green = data[i + 1], blue = data[i + 2];
-                data[i] = 255 - red;
-                data[i + 1] = 255 - green;
-                data[i + 2] = 255 - blue;
-            }
-
             if (params.showMonochrome) {
                 const gray = (data[i] + data[i + 1] + data[i + 2]) / 3;
                 data[i] = data[i + 1] = data[i + 2] = gray;
             }
-        } // end for
-
-        if (params.showEmboss) {
-            for (let i = 0; i < length; i++) {
-                if (i % 4 == 3) continue;
-                data[i] = 127 + 2 * data[i] - data[i + 4] - data[i + width * 4];
-            }
         }
 
-        // D) copy image data back to canvas
+        // copy image data back to canvas
         ctx.putImageData(imageData, 0, 0);
     }
 }
