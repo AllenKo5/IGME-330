@@ -1,0 +1,32 @@
+{
+    "circles": {
+        "name": "showCircles",
+        "id": "#circles-checkbox",
+        "state": true
+    },
+    "bars": {
+        "name": "showBars",
+        "id": "#bars-checkbox",
+        "state": true
+    },
+    "comets": {
+        "name": "showComets",
+        "id": "#comets-checkbox",
+        "state": false
+    },
+    "trails": {
+        "name": "showTrails",
+        "id": "#trails-checkbox",
+        "state": false
+    },
+    "impacts": {
+        "name": "showImpacts",
+        "id": "#impacts-checkbox",
+        "state": false
+    },
+    "monochrome": {
+        "name": "showMonochrome",
+        "id": "#monochrome-checkbox",
+        "state": false
+    }
+}

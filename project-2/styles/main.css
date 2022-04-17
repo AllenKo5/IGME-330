@@ -3,16 +3,16 @@ body {
     font-family: tahoma, verdana, sans serif;
 }
 
+span {
+    margin-right: 1rem;
+}
+
 canvas {
     margin-left: 1rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
     background: #fafafa;
-}
-
-#controls {
-    margin-left: 1rem;
 }
 
 #volumeLabel {
@@ -23,9 +23,12 @@ section {
     margin-bottom: 1rem;
 }
 
-#play-button {
+#buttons {
+    margin-left: 3rem;
+}
+
+#play-button, #fs-button {
     font-size: 1.2rem;
-    width: 6rem;
 }
 
 button[data-playing="yes"]:after {

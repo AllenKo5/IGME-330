@@ -12,14 +12,8 @@ import * as utils from './utils.js';
 import * as audio from './audio.js';
 import * as visualizer from './visualizer.js';
 
-const drawParams = {
-    showBars: true,
-    showCircles: true,
-    showComets: false,
-    showNoise: false,
-    showInvert: false,
-    showEmboss: false
-};
+let circlesCB, barsCB, cometsCB, trailsCB, impactsCB, monochromeCB;
+const drawParams = {};
 
 // 1 - here we are faking an enumeration
 const DEFAULTS = Object.freeze({
@@ -28,9 +22,31 @@ const DEFAULTS = Object.freeze({
 
 function init() {
     console.log("init called");
-    console.log(`Testing utils.getRandomColor() import: ${utils.getRandomColor()}`);
     audio.setupWebaudio(DEFAULTS.sound1);
     let canvasElement = document.querySelector("canvas"); // hookup <canvas> element
+
+    // async fetch from presets.json
+    const fetchPromise = async () => {
+        let response = await fetch("data/presets.json");
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        let json = await response.json();
+        const keys = Object.keys(json);
+        for (let k of keys) {
+            const obj = json[k];
+            drawParams[obj.name] = obj.state;
+            document.querySelector(obj.id).checked = obj.state;
+        }
+    };
+
+    fetchPromise()
+    .catch(e => {
+        console.log(`In catch with e = ${e}`);
+    });	
+    
     setupUI(canvasElement);
 }
 
@@ -93,14 +109,30 @@ function setupUI(canvasElement) {
     };
 
     // checkboxes
-    document.querySelector("#circles-checkbox").onchange = e => {
+    circlesCB = document.querySelector("#circles-checkbox");
+    barsCB = document.querySelector("#bars-checkbox");
+    cometsCB = document.querySelector("#comets-checkbox");
+    trailsCB = document.querySelector("#trails-checkbox");
+    impactsCB = document.querySelector("#impacts-checkbox");
+    monochromeCB = document.querySelector("#monochrome-checkbox");
+
+    circlesCB.onchange = e => {
         drawParams.showCircles = e.target.checked;
     }
-    document.querySelector("#bars-checkbox").onchange = e => {
+    barsCB.onchange = e => {
         drawParams.showBars = e.target.checked;
     }
-    document.querySelector("#comets-checkbox").onchange = e => {
+    cometsCB.onchange = e => {
         drawParams.showComets = e.target.checked;
+    }
+    trailsCB.onchange = e => {
+        drawParams.showTrails = e.target.checked;
+    }
+    impactsCB.onchange = e => {
+        drawParams.showImpacts = e.target.checked;
+    }
+    monochromeCB.onchange = e => {
+        drawParams.showMonochrome = e.target.checked;
     }
 
     visualizer.setupCanvas(canvasElement, audio.analyserNode);
@@ -108,6 +140,14 @@ function setupUI(canvasElement) {
 } // end setupUI
 
 function loop() {
+    // update comet-reliant checkboxes
+    trailsCB.disabled = !cometsCB.checked;
+    impactsCB.disabled = !cometsCB.checked;
+    if (!cometsCB.checked) {
+        trailsCB.checked = false;
+        impactsCB.checked = false;
+    }
+
     requestAnimationFrame(loop);
     visualizer.draw(drawParams);
 }
