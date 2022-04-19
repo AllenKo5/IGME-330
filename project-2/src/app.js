@@ -33,6 +33,8 @@ function init() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
+        console.log("json loaded from file");
+
         let json = await response.json();
         const keys = Object.keys(json);
         for (let k of keys) {
@@ -124,6 +126,10 @@ function setupUI(canvasElement) {
     }
     cometsCB.onchange = e => {
         drawParams.showComets = e.target.checked;
+
+        // update dependents
+        drawParams.showTrails = trailsCB.checked;
+        drawParams.showImpacts = impactsCB.checked;
     }
     trailsCB.onchange = e => {
         drawParams.showTrails = e.target.checked;
