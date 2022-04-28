@@ -4,7 +4,7 @@ template.innerHTML = `
 <style>
 :host {
     user-select: none;
-} 
+}
 </style>
 <header class="hero is-small is-info is-bold">
     <div class="hero-body">

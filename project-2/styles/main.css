@@ -1,10 +1,6 @@
 body {
     background: #eeeeee;
-    font-family: tahoma, verdana, sans serif;
-}
-
-span {
-    margin-right: 1rem;
+    user-select: none;
 }
 
 canvas {
@@ -19,8 +15,16 @@ canvas {
     margin-left: 1rem;
 }
 
-section {
+.parameter {
+    padding: 0 0.5rem;
+    margin-right: 1rem;
+}
+
+#controls {
     margin-bottom: 1rem;
+    font-size: 20px;
+    font-family: 'Bangers', cursive;
+    color: royalblue;
 }
 
 #buttons {

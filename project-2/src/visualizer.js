@@ -94,7 +94,7 @@ const draw = (params = {}) => {
                 if (params.showImpacts) {
                     ctx.save();
                     ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
-                    ctx.fillRect(comets[i].x, 0, comets[i].radius, comets[i].y, )
+                    ctx.fillRect(comets[i].x, 0, comets[i].radius, canvasHeight);
                     ctx.restore();
                 }
 
@@ -135,21 +135,21 @@ const draw = (params = {}) => {
             // dark blue circles
             ctx.beginPath();
             ctx.fillStyle = utils.makeColor(0, 0, 128, 0.34 - percent / 3.0);
-            ctx.arc(canvasWidth / 2, canvasHeight / 3, circleRadius, 0, 2 * Math.PI, false);
+            ctx.arc(canvasWidth / 2, canvasHeight / 3, circleRadius * 1.3, 0, 2 * Math.PI, false);
             ctx.fill();
             ctx.closePath();
 
             // light blue circles, bigger, more transparent
             ctx.beginPath();
             ctx.fillStyle = utils.makeColor(0, 128, 255, 0.10 - percent / 10.0);
-            ctx.arc(canvasWidth / 2, canvasHeight / 3, circleRadius * 1.2, 0, 2 * Math.PI, false);
+            ctx.arc(canvasWidth / 2, canvasHeight / 3, circleRadius * 1.6, 0, 2 * Math.PI, false);
             ctx.fill();
             ctx.closePath();
 
             // blue circles, smaller
             ctx.beginPath();
             ctx.fillStyle = utils.makeColor(0, 0, 255, 0.5 - percent / 5.0);
-            ctx.arc(canvasWidth / 2, canvasHeight / 3, circleRadius * 0.8, 0, 2 * Math.PI, false);
+            ctx.arc(canvasWidth / 2, canvasHeight / 3, circleRadius, 0, 2 * Math.PI, false);
             ctx.fill();
             ctx.closePath();
         }
